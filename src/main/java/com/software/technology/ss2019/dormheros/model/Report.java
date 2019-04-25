@@ -15,6 +15,7 @@ public class Report {
     private String description;
     private int numberOfInvolvedPeople;
     private Date creationDate;
+    private Date lastModifiedDate;
 
     public Report(ObjectId _id, String place, Disturbance disturbance,
                   String description, int numberOfInvolvedPeople) {
@@ -24,6 +25,7 @@ public class Report {
         this.description = description;
         this.numberOfInvolvedPeople = numberOfInvolvedPeople;
         this.creationDate = new Date();
+        this.lastModifiedDate = new Date();
     }
 
     public String get_id() {
@@ -73,5 +75,13 @@ public class Report {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Date getlastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 }
