@@ -1,4 +1,4 @@
-package com.software.technology.ss2019.dormheros.model;
+package com.software.technology.ss2019.dormheroes.model;
 
 
 import org.bson.types.ObjectId;
@@ -10,22 +10,21 @@ public class Report {
     @Id
     private ObjectId _id;
 
-    private String place;
-    private Disturbance disturbance;
+    private String location;
+    private DisturbanceType disturbanceType;
     private String description;
     private int numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Report(ObjectId _id, String place, Disturbance disturbance,
+    public Report(ObjectId _id, String location, DisturbanceType disturbanceType,
                   String description, int numberOfInvolvedPeople) {
         this._id = _id;
-        this.place = place;
-        this.disturbance = disturbance;
+        this.location = location;
+        this.disturbanceType = disturbanceType;
         this.description = description;
         this.numberOfInvolvedPeople = numberOfInvolvedPeople;
         this.creationDate = new Date();
-        this.lastModifiedDate = new Date();
     }
 
     public String get_id() {
@@ -37,20 +36,20 @@ public class Report {
     }
 
 
-    public Disturbance getDisturbance() {
-        return disturbance;
+    public DisturbanceType getDisturbanceType() {
+        return disturbanceType;
     }
 
-    public void setDisturbance(Disturbance disturbance) {
-        this.disturbance = disturbance;
+    public void setDisturbanceType(DisturbanceType disturbanceType) {
+        this.disturbanceType = disturbanceType;
     }
 
     public String getplace() {
-        return place;
+        return location;
     }
 
     public void setplace(String place) {
-        this.place = place;
+        this.location = place;
     }
 
     public String getDescription() {

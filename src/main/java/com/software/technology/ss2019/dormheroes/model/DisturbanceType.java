@@ -1,15 +1,15 @@
-package com.software.technology.ss2019.dormheros.model;
+package com.software.technology.ss2019.dormheroes.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-public class Disturbance {
+public class DisturbanceType {
     @Id
     public ObjectId _id;
 
     public String type;
 
-    public Disturbance(ObjectId _id, String type) {
+    public DisturbanceType(ObjectId _id, String type) {
         this._id = _id;
         this.type = type;
     }

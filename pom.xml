@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.software.technology.ss2019</groupId>
-	<artifactId>dorm-heros</artifactId>
+	<artifactId>dorm-heroes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>dorm-heros</name>
+	<name>dorm-heroes</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

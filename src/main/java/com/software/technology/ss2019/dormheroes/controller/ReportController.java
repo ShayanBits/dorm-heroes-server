@@ -1,7 +1,7 @@
-package com.software.technology.ss2019.dormheros.controller;
+package com.software.technology.ss2019.dormheroes.controller;
 
-import com.software.technology.ss2019.dormheros.model.Report;
-import com.software.technology.ss2019.dormheros.repositories.ReportRepository;
+import com.software.technology.ss2019.dormheroes.model.Report;
+import com.software.technology.ss2019.dormheroes.repositories.ReportRepository;
 
 
 import org.bson.types.ObjectId;
@@ -34,8 +34,7 @@ public class ReportController {
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     public Report createReport(@Valid @RequestBody Report report){
-        report.set_id(ObjectId.get());
-        return reportRepository.save(report);
+        return reportRepository.insert(report);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
@@ -46,10 +45,10 @@ public class ReportController {
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     public Report updateReportById(@PathVariable("id") ObjectId id, @Valid @RequestBody Report report){
-        report.set_id(id);
-        report.setLastModifiedDate(new Date());
-        return reportRepository.save(report);
-        //TODO: update object instead of saving a new on
+        Report toBeUpdatedReport = reportRepository.findBy_id(id);
+        toBeUpdatedReport.setDescription(report.getDescription());
+        toBeUpdatedReport.setLastModifiedDate(new Date());
+        return reportRepository.save(toBeUpdatedReport);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
