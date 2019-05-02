@@ -40,13 +40,15 @@ public class ReportController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public Report getReportById(@PathVariable("id") ObjectId id){
         return reportRepository.findBy_id(id);
-        //TODO specify required and not required variables for reports
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     public Report updateReportById(@PathVariable("id") ObjectId id, @Valid @RequestBody Report report){
         Report toBeUpdatedReport = reportRepository.findBy_id(id);
+        toBeUpdatedReport.setLocation(report.getLocation());
         toBeUpdatedReport.setDescription(report.getDescription());
+        toBeUpdatedReport.setDisturbanceType(report.getDisturbanceType());
+        toBeUpdatedReport.setNumberOfInvolvedPeople(report.getNumberOfInvolvedPeople());
         toBeUpdatedReport.setLastModifiedDate(new Date());
         return reportRepository.save(toBeUpdatedReport);
     }

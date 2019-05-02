@@ -4,6 +4,7 @@ package com.software.technology.ss2019.dormheroes.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Report {
@@ -44,11 +45,11 @@ public class Report {
         this.disturbanceType = disturbanceType;
     }
 
-    public String getplace() {
+    public String getLocation() {
         return location;
     }
 
-    public void setplace(String place) {
+    public void setLocation(String place) {
         this.location = place;
     }
 
@@ -60,11 +61,11 @@ public class Report {
         this.description = description;
     }
 
-    public int getnumberOfInvolvedPeople() {
+    public int getNumberOfInvolvedPeople() {
         return numberOfInvolvedPeople;
     }
 
-    public void setnumberOfInvolvedPeople(int numberOfInvolvedPeople) {
+    public void setNumberOfInvolvedPeople(int numberOfInvolvedPeople) {
         this.numberOfInvolvedPeople = numberOfInvolvedPeople;
     }
 
