@@ -87,4 +87,17 @@ public class Report {
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "_id=" + _id +
+                ", location='" + location + '\'' +
+                ", disturbanceType=" + disturbanceType +
+                ", description='" + description + '\'' +
+                ", numberOfInvolvedPeople=" + numberOfInvolvedPeople +
+                ", creationDate=" + creationDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                '}';
+    }
 }

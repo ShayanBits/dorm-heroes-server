@@ -29,4 +29,12 @@ public class DisturbanceType {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "DisturbanceType{" +
+                "_id=" + _id +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }
