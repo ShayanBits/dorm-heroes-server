@@ -18,6 +18,9 @@ public class Report {
     private Date creationDate;
     private Date lastModifiedDate;
 
+    public Report(){
+    }
+    
     public Report(ObjectId _id, String location, DisturbanceType disturbanceType,
                   String description, int numberOfInvolvedPeople) {
         this._id = _id;
