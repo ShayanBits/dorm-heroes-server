@@ -19,40 +19,75 @@ import java.util.List;
 @SpringBootTest
 public class ReportControllerTest {
 
-
-
     @Autowired
     private ReportController controller;
 
-
     @Test
-    public void ReportShouldEqualsTheResultReport(){
-        Report demoReport = new Report(new ObjectId(), "testLocation", new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"), "dd", 4);
-        Report resultReport = controller.createReport(demoReport);
-        Assert.assertEquals(demoReport, resultReport);
+    public void CreatedReportShouldEqualsTheSavedReportInDatabase(){
+        Report testReport = new Report(new ObjectId(),
+                "serverTestLocation",
+                new DisturbanceType(new ObjectId(),"DisturbanceTypeTest"),
+                "dd",
+                4);
+
+        Report savedReportInDB = controller.createReport(testReport);
+        Assert.assertEquals("The next two reports should be equal, but they are not.", testReport, savedReportInDB);
     }
 
     @Test
-    public void getReportListAndUpdateReport(){
-        Report demoReport = new Report(new ObjectId(), "testLocation", new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"), "dd", 4);
+    public void listOfAllReportsShoultNotBeEmpty() {
+        Report testReport = new Report(new ObjectId(),
+                "serverTestLocation",
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
+                "dd",
+                4);
 
-        controller.createReport(demoReport);
-        List<Report> reports =  controller.getAllReports();
+        controller.createReport(testReport);
+        List<Report> reports = controller.getAllReports();
 
-        Assert.assertFalse( reports.isEmpty() );
+        Assert.assertFalse("List of reports should not be empty", reports.isEmpty());
 
-        demoReport.setDescription("DescriptionNew");
-        ObjectId o = new ObjectId("s");
-        Report updatedReportResult = controller.updateReportById(new ObjectId(demoReport.get_id()), demoReport);
-        Assert.assertEquals(demoReport.getDescription(), updatedReportResult.getDescription());
     }
 
+    @Test
+    public void getListOfAllReports(){
+        Report testReport = new Report(new ObjectId(),
+                "serverTestLocation",
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
+                "dd",
+                4);
+
+        controller.createReport(testReport);
+        testReport.setDescription("DescriptionNew");
+
+        Report updatedReportResult = controller.updateReportById(testReport.getObjectID(), testReport);
+        Assert.assertEquals("The two reports should be equal but they are not", testReport.getDescription(), updatedReportResult.getDescription());
+    }
+
+    @Test
+    public void getReportById(){
+        Report testReport = new Report(new ObjectId(),
+                "serverTestLocation",
+                new DisturbanceType(new ObjectId(),"DisturbanceTypeTest"),
+                "dd",
+                4);
+
+        controller.createReport(testReport);
+        Report reportFromDB = controller.getReportById(testReport.getObjectID());
+        Assert.assertEquals("The reports should be empty but they are not.", testReport, reportFromDB);
+    }
+    
     @Test
     public void deleteReport(){
-        Report demoReport = new Report(new ObjectId(), "testLocation", new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"), "dd", 4);
-        controller.createReport(demoReport);
-        controller.deleteReportById(new ObjectId(demoReport.get_id()));
-        Report deletedReport = controller.getReportById(new ObjectId(demoReport.get_id()));
+        Report testReport = new Report(new ObjectId(),
+                "serverTestLocation",
+                new DisturbanceType(new ObjectId(),"DisturbanceTypeTest"),
+                "dd",
+                4);
+
+        controller.createReport(testReport);
+        controller.deleteReportById(new ObjectId(testReport.get_id()));
+        Report deletedReport = controller.getReportById(new ObjectId(testReport.get_id()));
         Assert.assertNull(deletedReport);
     }
 }
