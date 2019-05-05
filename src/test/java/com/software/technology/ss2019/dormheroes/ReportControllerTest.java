@@ -3,13 +3,11 @@ package com.software.technology.ss2019.dormheroes;
 import com.software.technology.ss2019.dormheroes.controller.ReportController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Report;
-import com.software.technology.ss2019.dormheroes.repositories.ReportRepository;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,10 +21,10 @@ public class ReportControllerTest {
     private ReportController controller;
 
     @Test
-    public void CreatedReportShouldEqualsTheSavedReportInDatabase(){
+    public void CreatedReportShouldEqualsTheSavedReportInDatabase() {
         Report testReport = new Report(new ObjectId(),
                 "serverTestLocation",
-                new DisturbanceType(new ObjectId(),"DisturbanceTypeTest"),
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
                 4);
 
@@ -50,7 +48,7 @@ public class ReportControllerTest {
     }
 
     @Test
-    public void getListOfAllReports(){
+    public void getListOfAllReports() {
         Report testReport = new Report(new ObjectId(),
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
@@ -65,10 +63,10 @@ public class ReportControllerTest {
     }
 
     @Test
-    public void getReportById(){
+    public void getReportById() {
         Report testReport = new Report(new ObjectId(),
                 "serverTestLocation",
-                new DisturbanceType(new ObjectId(),"DisturbanceTypeTest"),
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
                 4);
 
@@ -76,12 +74,12 @@ public class ReportControllerTest {
         Report reportFromDB = controller.getReportById(testReport.getObjectID());
         Assert.assertEquals("The reports should be empty but they are not.", testReport, reportFromDB);
     }
-    
+
     @Test
-    public void deleteReport(){
+    public void deleteReport() {
         Report testReport = new Report(new ObjectId(),
                 "serverTestLocation",
-                new DisturbanceType(new ObjectId(),"DisturbanceTypeTest"),
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
                 4);
 
