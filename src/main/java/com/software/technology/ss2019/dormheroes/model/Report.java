@@ -35,10 +35,13 @@ public class Report {
         return _id.toHexString();
     }
 
+    public ObjectId getObjectID() {
+        return _id;
+    }
+
     public void set_id(ObjectId _id) {
         this._id = _id;
     }
-
 
     public DisturbanceType getDisturbanceType() {
         return disturbanceType;
