@@ -72,7 +72,7 @@ public class ReportControllerTest {
 
         controller.createReport(testReport);
         Report reportFromDB = controller.getReportById(testReport.getObjectID());
-        Assert.assertEquals("The reports should be empty but they are not.", testReport, reportFromDB);
+        Assert.assertEquals("The next two reports should be equal, but they are not.", testReport.toString(), reportFromDB.toString());
     }
 
     @Test
