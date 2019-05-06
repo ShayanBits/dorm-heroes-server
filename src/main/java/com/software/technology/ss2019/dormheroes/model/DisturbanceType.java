@@ -1,21 +1,21 @@
-package com.software.technology.ss2019.dormheros.model;
+package com.software.technology.ss2019.dormheroes.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-public class Disturbance {
+public class DisturbanceType {
     @Id
     public ObjectId _id;
 
     public String type;
 
-    public Disturbance(ObjectId _id, String type) {
+    public DisturbanceType(ObjectId _id, String type) {
         this._id = _id;
         this.type = type;
     }
 
-    public ObjectId get_id() {
-        return _id;
+    public String get_id() {
+        return this._id.toHexString();
     }
 
     public void set_id(ObjectId _id) {
@@ -28,5 +28,13 @@ public class Disturbance {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "DisturbanceType{" +
+                "_id=" + _id +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.software.technology.ss2019.dormheros;
+package com.software.technology.ss2019.dormheroes;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DormHerosApplicationTests {
+public class DormHeroesApplicationTests {
 
 	@Test
 	public void contextLoads() {
