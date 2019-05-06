@@ -33,7 +33,7 @@ public class ReportControllerTest {
     }
 
     @Test
-    public void listOfAllReportsShoultNotBeEmpty() {
+    public void listOfAllReportsShouldNotBeEmpty() {
         Report testReport = new Report(new ObjectId(),
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
@@ -43,12 +43,12 @@ public class ReportControllerTest {
         controller.createReport(testReport);
         List<Report> reports = controller.getAllReports();
 
-        Assert.assertFalse("List of reports should not be empty", reports.isEmpty());
+        Assert.assertFalse("List of reports should not be empty.", reports.isEmpty());
 
     }
 
     @Test
-    public void getListOfAllReports() {
+    public void updatedReportShouldBeSavedInDatabase() {
         Report testReport = new Report(new ObjectId(),
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
@@ -59,7 +59,7 @@ public class ReportControllerTest {
         testReport.setDescription("DescriptionNew");
 
         Report updatedReportResult = controller.updateReportById(testReport.getObjectID(), testReport);
-        Assert.assertEquals("The two reports should be equal but they are not", testReport.getDescription(), updatedReportResult.getDescription());
+        Assert.assertEquals("The two reports should be equal but they are not.", testReport.getDescription(), updatedReportResult.getDescription());
     }
 
     @Test
@@ -86,6 +86,6 @@ public class ReportControllerTest {
         controller.createReport(testReport);
         controller.deleteReportById(new ObjectId(testReport.get_id()));
         Report deletedReport = controller.getReportById(new ObjectId(testReport.get_id()));
-        Assert.assertNull(deletedReport);
+        Assert.assertNull("Deleted report should not exist in DB but it does exist in DB.", deletedReport);
     }
 }
