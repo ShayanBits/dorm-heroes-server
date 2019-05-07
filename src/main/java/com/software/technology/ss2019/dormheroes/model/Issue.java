@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class Report {
+public class Issue {
     @Id
     private ObjectId _id;
 
@@ -18,11 +18,11 @@ public class Report {
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Report(){
+    public Issue(){
     }
     
-    public Report(ObjectId _id, String location, DisturbanceType disturbanceType,
-                  String description, int numberOfInvolvedPeople) {
+    public Issue(ObjectId _id, String location, DisturbanceType disturbanceType,
+                 String description, int numberOfInvolvedPeople) {
         this._id = _id;
         this.location = location;
         this.disturbanceType = disturbanceType;
@@ -93,7 +93,7 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report{" +
+        return "Issue{" +
                 "_id=" + _id +
                 ", location='" + location + '\'' +
                 ", disturbanceType=" + disturbanceType +
