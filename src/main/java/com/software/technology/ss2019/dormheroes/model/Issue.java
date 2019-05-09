@@ -99,4 +99,9 @@ public class Issue {
                 ", lastModifiedDate=" + lastModifiedDate +
                 '}';
     }
+
+    @Override
+    public int compareTo(Report o) {
+        return o.getCreationDate().compareTo(getCreationDate());
+    }
 }
