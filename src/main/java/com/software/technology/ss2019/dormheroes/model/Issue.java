@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class Issue {
+public class Issue implements Comparable<Issue>{
     @Id
     private ObjectId _id;
 
@@ -101,7 +101,7 @@ public class Issue {
     }
 
     @Override
-    public int compareTo(Report o) {
+    public int compareTo(Issue o) {
         return o.getCreationDate().compareTo(getCreationDate());
     }
 }
