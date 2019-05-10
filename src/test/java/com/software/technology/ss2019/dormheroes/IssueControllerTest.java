@@ -58,7 +58,7 @@ public class IssueControllerTest {
         controller.createIssue(testIssue);
         testIssue.setDescription("DescriptionNew");
 
-        Issue updatedIssueResult = controller.updateIssueById(testIssue.getObjectID(), testIssue);
+        Issue updatedIssueResult = controller.updateIssueById(new ObjectId(testIssue.get_id()), testIssue);
         Assert.assertEquals("The two issues should be equal but they are not.", testIssue.getDescription(), updatedIssueResult.getDescription());
     }
 
@@ -71,7 +71,7 @@ public class IssueControllerTest {
                 4);
 
         controller.createIssue(testIssue);
-        Issue issueFromDB = controller.getIssueById(testIssue.getObjectID());
+        Issue issueFromDB = controller.getIssueById(new ObjectId(testIssue.get_id()));
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue.toString(), issueFromDB.toString());
     }
 
