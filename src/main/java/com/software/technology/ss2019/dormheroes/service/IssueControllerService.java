@@ -4,9 +4,9 @@ import com.software.technology.ss2019.dormheroes.model.Issue;
 import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +17,7 @@ public class IssueControllerService {
     private IssueRepository issueRepository;
 
     public List<Issue> getAllIssues() {
-        List<Issue> listOfAllIssuesFromDB = issueRepository.findAll();
-        Collections.sort(listOfAllIssuesFromDB);
-        return listOfAllIssuesFromDB;
+        return issueRepository.findAll(new Sort(Sort.Direction.DESC, "creationDate"));
     }
 
     public Issue createIssue(Issue issue){
