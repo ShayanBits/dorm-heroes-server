@@ -89,7 +89,7 @@
 					"raw": "{\n\t\"place\" : \"Uni Bonn without blah\",\n\t\"Disturbance\": \"Disturbance-test without id\",\n\t\"description\" : \"Description-test8\",\n\t\"numberOfInvolvedPeople\": 10\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/reports/",
+					"raw": "http://localhost:8080/api/issues/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -97,7 +97,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"reports",
+						"issues",
 						""
 					]
 				},
