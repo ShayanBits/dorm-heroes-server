@@ -4,7 +4,6 @@ package com.software.technology.ss2019.dormheroes.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Issue implements Comparable<Issue>{

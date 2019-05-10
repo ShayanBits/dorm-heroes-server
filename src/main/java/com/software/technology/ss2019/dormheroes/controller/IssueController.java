@@ -1,7 +1,6 @@
 package com.software.technology.ss2019.dormheroes.controller;
 
 import com.software.technology.ss2019.dormheroes.model.Issue;
-import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 
 
 import com.software.technology.ss2019.dormheroes.service.IssueControllerService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Date;
 
 
 @RestController
