@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "dca9a067-0528-4a37-84a1-fe5481906dff",
+		"name": "Dorm-Heroes",
+		"description": "every dorm heros Api call",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/issues/ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"place\" : \"Uni Bonn without id\",\n\t\"Disturbance\": \"Disturbance-test without id\",\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/issues/5cbdb9d8e605d42b3443c66a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						"5cbdb9d8e605d42b3443c66a"
+					]
+				},
+				"description": "swap Id with a issue's ID"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/issues/ID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"place\" : \"Uni Bonn without id\",\n\t\"Disturbance\": \"Disturbance-test without id\",\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/issues/5cbdb9d8e605d42b3443c66a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						"5cbdb9d8e605d42b3443c66a"
+					]
+				},
+				"description": "swap Id with a issues's id to update it"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/issues/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"place\" : \"Uni Bonn without blah\",\n\t\"Disturbance\": \"Disturbance-test without id\",\n\t\"description\" : \"Description-test8\",\n\t\"numberOfInvolvedPeople\": 10\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/reports/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reports",
+						""
+					]
+				},
+				"description": "Creating a new issue"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/issues/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/issues/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						""
+					]
+				},
+				"description": "Getting all saved issues"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fc677050-ec5f-4886-b5c8-5ed76304b2c6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3883dc5f-6bff-4de2-aa55-97ee39644e96",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
