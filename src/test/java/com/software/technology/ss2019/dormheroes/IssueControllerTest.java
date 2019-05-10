@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -88,4 +90,36 @@ public class IssueControllerTest {
         Issue deletedIssue = controller.getIssueById(new ObjectId(testIssue.get_id()));
         Assert.assertNull("Deleted issue should not exist in DB but it does exist in DB.", deletedIssue);
     }
+
+    @Test
+    public void testIssuesShoulddBeSortedByDate() throws InterruptedException {
+        Issue firstCreated = new Issue(new ObjectId(),
+                "first",
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
+                "dd",
+                4);
+        Thread.sleep(100);
+        Issue secondCreated = new Issue(new ObjectId(),
+                "second",
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
+                "dd",
+                4);
+        Thread.sleep(100);
+        Issue thirdCreated = new Issue(new ObjectId(),
+                "third",
+                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
+                "dd",
+                4);
+
+        List<Issue> listOfReports = new ArrayList<>();
+        listOfReports.add(firstCreated);
+        listOfReports.add(secondCreated);
+        listOfReports.add(thirdCreated);
+        Collections.sort(listOfReports);
+        Assert.assertEquals("The elements in the list should be sorted by date, but they are not.", firstCreated, listOfReports.get(2));
+        Assert.assertEquals("The elements in the list should be sorted by date, but they are not.", secondCreated, listOfReports.get(1));
+        Assert.assertEquals("The elements in the list should be sorted by date, but they are not.", thirdCreated, listOfReports.get(0));
+        Assert.assertNotEquals("The first created report should not be the first in the list.", firstCreated, listOfReports.get(0));
+    }
+
 }
