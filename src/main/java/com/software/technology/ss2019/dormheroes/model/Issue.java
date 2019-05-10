@@ -35,10 +35,6 @@ public class Issue {
         return _id.toHexString();
     }
 
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
     public DisturbanceType getDisturbanceType() {
         return disturbanceType;
     }
@@ -73,10 +69,6 @@ public class Issue {
 
     public Date getCreationDate() {
         return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public Date getlastModifiedDate() {
