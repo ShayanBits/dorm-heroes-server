@@ -5,9 +5,9 @@ import org.springframework.data.annotation.Id;
 
 public class DisturbanceType {
     @Id
-    public ObjectId _id;
+    private ObjectId _id;
 
-    public String type;
+    private String type;
 
     public DisturbanceType(ObjectId _id, String type) {
         this._id = _id;
@@ -17,11 +17,7 @@ public class DisturbanceType {
     public String get_id() {
         return this._id.toHexString();
     }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
+    
     public String getType() {
         return type;
     }
