@@ -17,7 +17,7 @@ public class IssueControllerService {
     private IssueRepository issueRepository;
 
     public List<Issue> getAllIssues() {
-        return issueRepository.findAll(new Sort(Sort.Direction.DESC, "creationDate"));
+        return issueRepository.findByOrderByCreationDateDesc();
     }
 
     public Issue createIssue(Issue issue){
