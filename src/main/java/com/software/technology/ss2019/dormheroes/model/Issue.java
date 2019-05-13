@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
-public class Issue implements Comparable<Issue>{
+public class Issue{
     @Id
     private ObjectId _id;
 
@@ -97,10 +97,5 @@ public class Issue implements Comparable<Issue>{
                 ", creationDate=" + creationDate +
                 ", lastModifiedDate=" + lastModifiedDate +
                 '}';
-    }
-
-    @Override
-    public int compareTo(Issue o) {
-        return o.getCreationDate().compareTo(getCreationDate());
     }
 }
