@@ -65,7 +65,7 @@ public class IssueControllerTest {
     }
 
     @Test
-    public void getIssueById() {
+    public void getIssueByIdShouldReturnTheCorrectIssue() {
         Issue testIssue = new Issue(new ObjectId(),
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
@@ -78,7 +78,7 @@ public class IssueControllerTest {
     }
 
     @Test
-    public void deleteIssue() {
+    public void deletedIssueShouldNotBeInDB() {
         Issue testIssue = new Issue(new ObjectId(),
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
