@@ -17,9 +17,6 @@ public class Issue{
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Issue(){
-    }
-    
     public Issue(ObjectId _id, String location, DisturbanceType disturbanceType,
                  String description, int numberOfInvolvedPeople) {
         this._id = _id;
