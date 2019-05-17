@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-public class Issue {
+public class Issue{
     @Id
     private ObjectId _id;
 

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -63,7 +65,7 @@ public class IssueControllerTest {
     }
 
     @Test
-    public void getIssueById() {
+    public void getIssueByIdShouldReturnTheCorrectIssue() {
         Issue testIssue = new Issue(new ObjectId(),
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
@@ -76,7 +78,7 @@ public class IssueControllerTest {
     }
 
     @Test
-    public void deleteIssue() {
+    public void deletedIssueShouldNotBeInDB() {
         Issue testIssue = new Issue(new ObjectId(),
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
@@ -88,4 +90,5 @@ public class IssueControllerTest {
         Issue deletedIssue = controller.getIssueById(new ObjectId(testIssue.get_id()));
         Assert.assertNull("Deleted issue should not exist in DB but it does exist in DB.", deletedIssue);
     }
+
 }
