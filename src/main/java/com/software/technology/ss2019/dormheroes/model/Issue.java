@@ -9,7 +9,8 @@ import java.util.Date;
 public class Issue{
     @Id
     private ObjectId _id;
-
+    private Status status;
+    private String title;
     private String location;
     private DisturbanceType disturbanceType;
     private String description;
@@ -17,9 +18,11 @@ public class Issue{
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Issue(ObjectId _id, String location, DisturbanceType disturbanceType,
+    public Issue(ObjectId _id,Status status,String title, String location, DisturbanceType disturbanceType,
                  String description, int numberOfInvolvedPeople) {
         this._id = _id;
+        this.status = status;
+        this.title = title;
         this.location = location;
         this.disturbanceType = disturbanceType;
         this.description = description;
@@ -33,6 +36,22 @@ public class Issue{
 
     public void set_id(ObjectId _id) {
         this._id = _id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public DisturbanceType getDisturbanceType() {

@@ -3,6 +3,7 @@ package com.software.technology.ss2019.dormheroes;
 import com.software.technology.ss2019.dormheroes.controller.IssueController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
+import com.software.technology.ss2019.dormheroes.model.Status;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,6 +26,8 @@ public class IssueControllerTest {
     @Test
     public void CreatedIssueShouldEqualsTheSavedIssueInDatabase() {
         Issue testIssue = new Issue(new ObjectId(),
+                new Status(new ObjectId(),"TestStatus"),
+                "TestTitle",
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
@@ -37,6 +40,8 @@ public class IssueControllerTest {
     @Test
     public void listOfAllIssuesShouldNotBeEmpty() {
         Issue testIssue = new Issue(new ObjectId(),
+                new Status(new ObjectId(),"TestStatus"),
+                "TestTitle",
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
@@ -52,6 +57,8 @@ public class IssueControllerTest {
     @Test
     public void updatedIssueShouldBeSavedInDatabase() {
         Issue testIssue = new Issue(new ObjectId(),
+                new Status(new ObjectId(),"TestStatus"),
+                "TestTitle",
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
@@ -67,6 +74,8 @@ public class IssueControllerTest {
     @Test
     public void getIssueByIdShouldReturnTheCorrectIssue() {
         Issue testIssue = new Issue(new ObjectId(),
+                new Status(new ObjectId(),"TestStatus"),
+                "TestTitle",
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
@@ -80,6 +89,8 @@ public class IssueControllerTest {
     @Test
     public void deletedIssueShouldNotBeInDB() {
         Issue testIssue = new Issue(new ObjectId(),
+                new Status(new ObjectId(),"TestStatus"),
+                "TestTitle",
                 "serverTestLocation",
                 new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
                 "dd",
