@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "dca9a067-0528-4a37-84a1-fe5481906dff",
+		"_postman_id": "c6f2fcbf-b82a-4ddd-8e62-e12bb15e9159",
 		"name": "Dorm-Heroes",
 		"description": "every dorm heros Api call",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -20,10 +20,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"place\" : \"Uni Bonn without id\",\n\t\"Disturbance\": \"Disturbance-test without id\",\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
+					"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/issues/5cbdb9d8e605d42b3443c66a",
+					"raw": "http://localhost:8080/api/status",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -31,8 +31,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"issues",
-						"5cbdb9d8e605d42b3443c66a"
+						"status"
 					]
 				},
 				"description": "swap Id with a issue's ID"
@@ -53,7 +52,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"place\" : \"Uni Bonn without id\",\n\t\"Disturbance\": \"Disturbance-test without id\",\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
+					"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/issues/5cbdb9d8e605d42b3443c66a",
@@ -86,7 +85,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"place\" : \"Uni Bonn without blah\",\n\t\"Disturbance\": \"Disturbance-test without id\",\n\t\"description\" : \"Description-test8\",\n\t\"numberOfInvolvedPeople\": 10\n}"
+					"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/issues/",
