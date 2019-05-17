@@ -5,22 +5,27 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Issue {
     @Id
     private ObjectId _id;
 
+    @NotNull(message = "Location type should not be empty.")
     private String location;
+
+    @NotNull(message = "Disturbance type should not be empty.")
     private DisturbanceType disturbanceType;
+
+    @NotNull(message = "Description should not be empty.")
+    @Size(max = 500, message = "Description should not be longer then 500 characters.")
     private String description;
+
     private int numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Issue(){
-    }
-    
     public Issue(ObjectId _id, String location, DisturbanceType disturbanceType,
                  String description, int numberOfInvolvedPeople) {
         this._id = _id;
