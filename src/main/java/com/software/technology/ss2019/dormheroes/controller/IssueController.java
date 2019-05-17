@@ -1,9 +1,9 @@
 package com.software.technology.ss2019.dormheroes.controller;
 
 import com.software.technology.ss2019.dormheroes.model.Issue;
-import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 
 
+import com.software.technology.ss2019.dormheroes.service.IssueControllerService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Date;
 
 
 @RestController
@@ -24,38 +23,33 @@ import java.util.Date;
 public class IssueController {
 
     @Autowired
-    private IssueRepository issueRepository;
-
+    IssueControllerService controllerService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Issue> getAllIssues() {
-        return issueRepository.findAll();
+        return controllerService.getAllIssues();
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public Issue createIssue(@Valid @RequestBody Issue issue){
-        return issueRepository.insert(issue);
+    public Issue createIssue(@Valid @RequestBody Issue issue)
+    {
+        return controllerService.createIssue(issue);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Issue getIssueById(@PathVariable("id") ObjectId id){
-        return issueRepository.findBy_id(id);
+    public Issue getIssueById(@PathVariable("id") ObjectId id)
+    {
+        return controllerService.getIssueById(id);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     public Issue updateIssueById(@PathVariable("id") ObjectId id, @Valid @RequestBody Issue issue){
-        Issue toBeUpdatedIssue = issueRepository.findBy_id(id);
-        toBeUpdatedIssue.setLocation(issue.getLocation());
-        toBeUpdatedIssue.setDescription(issue.getDescription());
-        toBeUpdatedIssue.setDisturbanceType(issue.getDisturbanceType());
-        toBeUpdatedIssue.setNumberOfInvolvedPeople(issue.getNumberOfInvolvedPeople());
-        toBeUpdatedIssue.setLastModifiedDate(new Date());
-        return issueRepository.save(toBeUpdatedIssue);
+      return controllerService.updateIssueById(id, issue);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     public void deleteIssueById(@PathVariable("id") ObjectId id){
-        issueRepository.delete(issueRepository.findBy_id(id));
+       controllerService.deleteIssueById(id);
     }
 
 }

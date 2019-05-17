@@ -4,10 +4,9 @@ package com.software.technology.ss2019.dormheroes.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class Issue {
+public class Issue{
     @Id
     private ObjectId _id;
 
@@ -18,9 +17,6 @@ public class Issue {
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Issue(){
-    }
-    
     public Issue(ObjectId _id, String location, DisturbanceType disturbanceType,
                  String description, int numberOfInvolvedPeople) {
         this._id = _id;
