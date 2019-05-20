@@ -9,6 +9,9 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Issue{
+
+    private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
+    
     @Id
     private ObjectId _id;
 
@@ -19,7 +22,7 @@ public class Issue{
     private DisturbanceType disturbanceType;
 
     @NotNull(message = "Description should not be empty.")
-    @Size(max = 500, message = "Description should not be longer then 500 characters.")
+    @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description should not be longer then 500 characters.")
     private String description;
 
     private int numberOfInvolvedPeople;
