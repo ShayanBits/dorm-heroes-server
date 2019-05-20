@@ -30,6 +30,8 @@ public class IssueControllerService {
 
     public Issue updateIssueById(ObjectId id, Issue issue){
         Issue toBeUpdatedIssue = issueRepository.findBy_id(id);
+        toBeUpdatedIssue.setStatus(issue.getStatus());
+        toBeUpdatedIssue.setTitle(issue.getTitle());
         toBeUpdatedIssue.setLocation(issue.getLocation());
         toBeUpdatedIssue.setDescription(issue.getDescription());
         toBeUpdatedIssue.setDisturbanceType(issue.getDisturbanceType());

@@ -11,11 +11,12 @@ import java.util.Date;
 public class Issue{
 
     private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
-    
+
     @Id
     private ObjectId _id;
 
     @NotNull(message = "Location type should not be empty.")
+
     private String location;
 
     @NotNull(message = "Disturbance type should not be empty.")
@@ -25,13 +26,17 @@ public class Issue{
     @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description should not be longer then 500 characters.")
     private String description;
 
+    private Status status;
+    private String title;
     private int numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Issue(ObjectId _id, String location, DisturbanceType disturbanceType,
+    public Issue(ObjectId _id,Status status,String title, String location, DisturbanceType disturbanceType,
                  String description, int numberOfInvolvedPeople) {
         this._id = _id;
+        this.status = status;
+        this.title = title;
         this.location = location;
         this.disturbanceType = disturbanceType;
         this.description = description;
@@ -41,6 +46,22 @@ public class Issue{
 
     public String get_id() {
         return _id.toHexString();
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public DisturbanceType getDisturbanceType() {
