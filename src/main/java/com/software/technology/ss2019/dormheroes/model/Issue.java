@@ -4,16 +4,30 @@ package com.software.technology.ss2019.dormheroes.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Issue{
+
+    private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
+
     @Id
     private ObjectId _id;
+
+    @NotNull(message = "Location type should not be empty.")
+
+    private String location;
+
+    @NotNull(message = "Disturbance type should not be empty.")
+    private DisturbanceType disturbanceType;
+
+    @NotNull(message = "Description should not be empty.")
+    @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description should not be longer then 500 characters.")
+    private String description;
+
     private Status status;
     private String title;
-    private String location;
-    private DisturbanceType disturbanceType;
-    private String description;
     private int numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
@@ -32,10 +46,6 @@ public class Issue{
 
     public String get_id() {
         return _id.toHexString();
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
     }
 
     public Status getStatus() {
@@ -88,10 +98,6 @@ public class Issue{
 
     public Date getCreationDate() {
         return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public Date getlastModifiedDate() {
