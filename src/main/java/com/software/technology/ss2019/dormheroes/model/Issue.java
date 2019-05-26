@@ -16,7 +16,6 @@ public class Issue{
     private ObjectId _id;
 
     @NotNull(message = "Location type should not be empty.")
-
     private String location;
 
     @NotNull(message = "Disturbance type should not be empty.")
@@ -26,11 +25,12 @@ public class Issue{
     @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description should not be longer then 500 characters.")
     private String description;
 
-    @NotNull(message = "Status should not be empty")
+    @NotNull(message = "Status should not be empty.")
     private Status status;
 
-    @NotNull(message = "Title should not be empty")
+    @NotNull(message = "Title should not be empty.")
     private String title;
+
     private int numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
