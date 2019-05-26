@@ -1,8 +1,6 @@
 package com.software.technology.ss2019.dormheroes;
 
-import com.software.technology.ss2019.dormheroes.controller.DisturbanceTypeController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
-import com.software.technology.ss2019.dormheroes.repositories.DisturbanceTypeRepository;
 import com.software.technology.ss2019.dormheroes.service.DisturbanceTypeControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
@@ -30,7 +28,7 @@ public class DisturbanceTypeControllerServiceTest {
                 "created for SpringDisturbanceType"
         );
         disturbanceTypeControllerService.createDisturbanceType(testDisturbanceType);
-        List<DisturbanceType> disturbanceTypeList = disturbanceTypeControllerService.getAllDisturbanceType();
+        List<DisturbanceType> disturbanceTypeList = disturbanceTypeControllerService.getAllDisturbanceTypes();
         Assert.assertFalse("List of all DisturbanceTypes should not be empty" , disturbanceTypeList.isEmpty());
         disturbanceTypeControllerService.deleteDisturbanceTypeById(testId);
     }
@@ -43,7 +41,7 @@ public class DisturbanceTypeControllerServiceTest {
         );
         disturbanceTypeControllerService.createDisturbanceType(testDisturbanceType);
         disturbanceTypeControllerService.deleteDisturbanceTypeById(testId);
-        List<DisturbanceType> disturbanceTypeList = disturbanceTypeControllerService.getAllDisturbanceType();
+        List<DisturbanceType> disturbanceTypeList = disturbanceTypeControllerService.getAllDisturbanceTypes();
 
         List<DisturbanceType> deletedDisturbanceType = disturbanceTypeList.stream()
                 .filter(disturbanceType -> disturbanceType.get_id().equals(testId.toString()))
@@ -59,7 +57,7 @@ public class DisturbanceTypeControllerServiceTest {
                 "created for SpringDisturbanceType"
         );
         disturbanceTypeControllerService.createDisturbanceType(testDisturbanceType);
-        List<DisturbanceType> disturbanceTypeList = disturbanceTypeControllerService.getAllDisturbanceType();
+        List<DisturbanceType> disturbanceTypeList = disturbanceTypeControllerService.getAllDisturbanceTypes();
 
         List<DisturbanceType> createdDisturbanceType = disturbanceTypeList.stream()
                 .filter(disturbanceType -> disturbanceType.get_id().equals(testId.toString()))

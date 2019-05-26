@@ -19,7 +19,7 @@ public class DisturbanceTypeController {
     DisturbanceTypeControllerService disturbanceTypeControllerService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<DisturbanceType> getAllDisturbanceType(){
-        return disturbanceTypeControllerService.getAllDisturbanceType();
+    public List<DisturbanceType> getAllDisturbanceTypes(){
+        return disturbanceTypeControllerService.getAllDisturbanceTypes();
     }
 }

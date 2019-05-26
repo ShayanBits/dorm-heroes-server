@@ -13,7 +13,7 @@ public class DisturbanceTypeControllerService {
     @Autowired
     private DisturbanceTypeRepository disturbanceTypeRepository;
 
-    public List<DisturbanceType> getAllDisturbanceType(){
+    public List<DisturbanceType> getAllDisturbanceTypes(){
         return disturbanceTypeRepository.findAll();
     }
 
