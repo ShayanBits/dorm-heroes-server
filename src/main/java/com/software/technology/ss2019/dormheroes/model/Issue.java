@@ -2,6 +2,7 @@ package com.software.technology.ss2019.dormheroes.model;
 
 
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
@@ -26,7 +27,10 @@ public class Issue{
     @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description should not be longer then 500 characters.")
     private String description;
 
+    @NotNull(message = "Status should not be empty")
     private Status status;
+
+    @NotNull(message = "Title should not be empty")
     private String title;
     private int numberOfInvolvedPeople;
     private Date creationDate;
