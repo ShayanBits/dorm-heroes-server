@@ -28,14 +28,12 @@ public class IssueController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public Issue createIssue(@Valid @RequestBody Issue issue)
-    {
+    public Issue createIssue(@Valid @RequestBody Issue issue) {
         return issueControllerService.createIssue(issue);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Issue getIssueById(@PathVariable("id") ObjectId id)
-    {
+    public Issue getIssueById(@PathVariable("id") ObjectId id) {
         return issueControllerService.getIssueById(id);
     }
 

@@ -15,15 +15,15 @@ public class Issue{
     @Id
     private ObjectId _id;
 
-    @NotNull(message = "Location type should not be empty.")
+    @NotNull(message = "Location type must not be empty.")
 
     private String location;
 
-    @NotNull(message = "Disturbance type should not be empty.")
+    @NotNull(message = "Disturbance type must not be empty.")
     private DisturbanceType disturbanceType;
 
-    @NotNull(message = "Description should not be empty.")
-    @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description should not be longer then 500 characters.")
+    @NotNull(message = "Description must not be empty.")
+    @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description must not be longer then 500 characters.")
     private String description;
 
     private Status status;

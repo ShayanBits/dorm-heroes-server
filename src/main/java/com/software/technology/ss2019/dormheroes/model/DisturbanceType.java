@@ -3,10 +3,14 @@ package com.software.technology.ss2019.dormheroes.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotNull;
+
 public class DisturbanceType {
+
     @Id
     private ObjectId _id;
 
+    @NotNull(message = "Disturbance type must not be empty.")
     private String type;
 
     public DisturbanceType(ObjectId _id, String type) {

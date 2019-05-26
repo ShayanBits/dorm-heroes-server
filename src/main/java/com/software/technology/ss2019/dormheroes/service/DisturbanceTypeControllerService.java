@@ -15,4 +15,8 @@ public class DisturbanceTypeControllerService {
     public List<DisturbanceType> getAllDisturbanceType(){
         return disturbanceTypeRepository.findAll();
     }
+
+    public DisturbanceType createDisturbanceType(DisturbanceType disturbanceType){
+        return disturbanceTypeRepository.insert(disturbanceType);
+    }
 }
