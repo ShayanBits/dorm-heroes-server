@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b90b1e1d-bede-47f3-80f4-8460224bb25c",
+		"_postman_id": "c6f2fcbf-b82a-4ddd-8e62-e12bb15e9159",
 		"name": "Dorm-Heroes",
 		"description": "every dorm heros Api call",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -20,10 +20,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/issues/5cbdb9d8e605d42b3443c66a",
+					"raw": "http://localhost:8080/api/status",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -31,8 +31,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"issues",
-						"5cbdb9d8e605d42b3443c66a"
+						"status"
 					]
 				},
 				"description": "swap Id with a issue's ID"
@@ -53,7 +52,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t  \"status\":{\n        \"_id\": \"5cdda0c7158a45518dd11bda\"\n    },\n    \"disturbanceType\": {\n        \"_id\": \"5cdda0c7158a45518dd11bda\"\n    },\n    \"description\" : \"TestDescription\",\n    \"numberOfInvolvedPeople\": 10,\n    \"location\": \"TestLocation\",\n    \"title\": \"TestTitle\"\n}"
+					"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/issues/5cbdb9d8e605d42b3443c66a",
@@ -74,8 +73,11 @@
 		},
 		{
 			"name": "http://localhost:8080/api/issues/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -86,10 +88,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"status\":{\n        \"_id\": \"5cdda0c7158a45518dd11bda\"\n    },\n    \"disturbanceType\": {\n        \"_id\": \"5cdda0c7158a45518dd11bda\"\n    },\n    \"description\" : \"TestDescription\",\n    \"numberOfInvolvedPeople\": 10,\n    \"location\": \"TestLocation\",\n    \"title\": \"TestTitle\"\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/issues/",
+					"raw": "http://localhost:8080/api/disturbanceType/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -97,7 +99,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"issues",
+						"disturbanceType",
 						""
 					]
 				},
@@ -138,6 +140,41 @@
 					]
 				},
 				"description": "Getting all saved issues"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/disturbanceType/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/disturbanceType/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"disturbanceType",
+						""
+					]
+				}
 			},
 			"response": []
 		}
