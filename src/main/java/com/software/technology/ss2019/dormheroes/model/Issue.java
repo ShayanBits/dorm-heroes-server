@@ -11,6 +11,8 @@ import java.util.Date;
 public class Issue{
 
     private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
+    private static final int TITLE_MAX_CHAR_SIZE = 35;
+    private static final int TITLE_MIN_CHAR_SIZE = 35;
 
     @Id
     private ObjectId _id;
@@ -29,6 +31,7 @@ public class Issue{
     private Status status;
 
     @NotNull(message = "Title should not be empty.")
+    @Size(min=TITLE_MIN_CHAR_SIZE, max = TITLE_MAX_CHAR_SIZE,message = "Title should ne more than 5 and less than 35 characters.")
     private String title;
 
     private int numberOfInvolvedPeople;
