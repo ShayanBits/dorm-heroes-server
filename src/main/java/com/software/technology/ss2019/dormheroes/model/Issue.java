@@ -2,7 +2,6 @@ package com.software.technology.ss2019.dormheroes.model;
 
 
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
