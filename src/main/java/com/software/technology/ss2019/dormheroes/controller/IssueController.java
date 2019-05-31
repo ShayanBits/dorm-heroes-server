@@ -19,34 +19,32 @@ import java.util.List;
 public class IssueController {
 
     @Autowired
-    IssueControllerService controllerService;
+    IssueControllerService issueControllerService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Issue> getAllIssues() {
-        return controllerService.getAllIssues();
+        return issueControllerService.getAllIssues();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public Issue createIssue(@Valid @RequestBody Issue issue)
-    {
-        return controllerService.createIssue(issue);
+    public Issue createIssue(@Valid @RequestBody Issue issue) {
+        return issueControllerService.createIssue(issue);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Issue getIssueById(@PathVariable("id") ObjectId id)
-    {
-        return controllerService.getIssueById(id);
+    public Issue getIssueById(@PathVariable("id") ObjectId id) {
+        return issueControllerService.getIssueById(id);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     public Issue updateIssueById(@PathVariable("id") ObjectId id, @Valid @RequestBody Issue issue){
-      return controllerService.updateIssueById(id, issue);
+      return issueControllerService.updateIssueById(id, issue);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     public void deleteIssueById(@PathVariable("id") ObjectId id){
-       controllerService.deleteIssueById(id);
+       issueControllerService.deleteIssueById(id);
     }
 
 }

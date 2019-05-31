@@ -10,38 +10,39 @@ import java.util.Date;
 
 public class Issue{
 
+    private static final int TITLE_MIN_CHAR_SIZE = 5;
+    private static final int TITLE_MAX_CHAR_SIZE = 35;
     private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
 
     @Id
     private ObjectId _id;
 
-    @NotNull(message = "Location type should not be empty.")
+    @NotNull(message = "Location type must not be empty.")
 
     private String location;
 
-    @NotNull(message = "Disturbance type should not be empty.")
+    @NotNull(message = "Disturbance type must not be empty.")
     private DisturbanceType disturbanceType;
 
-    @NotNull(message = "Description should not be empty.")
-    @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description should not be longer then 500 characters.")
+    @NotNull(message = "Description must not be empty.")
+    @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description must not be longer then 500 characters.")
     private String description;
 
+    @NotNull(message = "Status should not be empty.")
     private Status status;
+
+    @NotNull(message = "Title should not be empty.")
+    @Size(min=TITLE_MIN_CHAR_SIZE, message = "Title should not contains less than 5 characters.")
+    @Size(max = TITLE_MAX_CHAR_SIZE, message = "Title should not contains more than 35 characters.")
     private String title;
+
     private int numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Issue(ObjectId _id,Status status,String title, String location, DisturbanceType disturbanceType,
-                 String description, int numberOfInvolvedPeople) {
-        this._id = _id;
-        this.status = status;
-        this.title = title;
-        this.location = location;
-        this.disturbanceType = disturbanceType;
-        this.description = description;
-        this.numberOfInvolvedPeople = numberOfInvolvedPeople;
+    public Issue() {
         this.creationDate = new Date();
+        this._id = new ObjectId();
     }
 
     public String get_id() {

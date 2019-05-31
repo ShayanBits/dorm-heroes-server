@@ -23,47 +23,37 @@ public class IssueControllerTest {
     @Autowired
     private IssueController controller;
 
+    public Issue createTestIssue(){
+        Status status = new Status();
+        DisturbanceType disturbanceType = new DisturbanceType();
+        Issue testIssue = new Issue();
+        testIssue.setDescription("TestDescription");
+        testIssue.setDisturbanceType(disturbanceType);
+        testIssue.setStatus(status);
+        testIssue.setLocation("testLocation");
+        testIssue.setTitle("TestTitle");
+        testIssue.setNumberOfInvolvedPeople(5);
+        return testIssue;
+    }
     @Test
     public void CreatedIssueShouldEqualsTheSavedIssueInDatabase() {
-        Issue testIssue = new Issue(new ObjectId(),
-                new Status(new ObjectId(),"TestStatus"),
-                "TestTitle",
-                "serverTestLocation",
-                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
-                "dd",
-                4);
-
+        Issue testIssue = createTestIssue();
         Issue savedIssueInDB = controller.createIssue(testIssue);
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue, savedIssueInDB);
     }
 
     @Test
     public void listOfAllIssuesShouldNotBeEmpty() {
-        Issue testIssue = new Issue(new ObjectId(),
-                new Status(new ObjectId(),"TestStatus"),
-                "TestTitle",
-                "serverTestLocation",
-                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
-                "dd",
-                4);
-
+        Issue testIssue = createTestIssue();
         controller.createIssue(testIssue);
         List<Issue> issues = controller.getAllIssues();
-
         Assert.assertFalse("List of issues should not be empty.", issues.isEmpty());
 
     }
 
     @Test
     public void updatedIssueShouldBeSavedInDatabase() {
-        Issue testIssue = new Issue(new ObjectId(),
-                new Status(new ObjectId(),"TestStatus"),
-                "TestTitle",
-                "serverTestLocation",
-                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
-                "dd",
-                4);
-
+        Issue testIssue = createTestIssue();
         controller.createIssue(testIssue);
         testIssue.setDescription("DescriptionNew");
 
@@ -73,14 +63,7 @@ public class IssueControllerTest {
 
     @Test
     public void getIssueByIdShouldReturnTheCorrectIssue() {
-        Issue testIssue = new Issue(new ObjectId(),
-                new Status(new ObjectId(),"TestStatus"),
-                "TestTitle",
-                "serverTestLocation",
-                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
-                "dd",
-                4);
-
+        Issue testIssue = createTestIssue();
         controller.createIssue(testIssue);
         Issue issueFromDB = controller.getIssueById(new ObjectId(testIssue.get_id()));
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue.toString(), issueFromDB.toString());
@@ -88,14 +71,7 @@ public class IssueControllerTest {
 
     @Test
     public void deletedIssueShouldNotBeInDB() {
-        Issue testIssue = new Issue(new ObjectId(),
-                new Status(new ObjectId(),"TestStatus"),
-                "TestTitle",
-                "serverTestLocation",
-                new DisturbanceType(new ObjectId(), "DisturbanceTypeTest"),
-                "dd",
-                4);
-
+        Issue testIssue = createTestIssue();
         controller.createIssue(testIssue);
         controller.deleteIssueById(new ObjectId(testIssue.get_id()));
         Issue deletedIssue = controller.getIssueById(new ObjectId(testIssue.get_id()));
