@@ -10,6 +10,8 @@ import java.util.Date;
 
 public class Issue{
 
+    private static final int TITLE_MIN_CHAR_SIZE = 5;
+    private static final int TITLE_MAX_CHAR_SIZE = 35;
     private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
 
     @Id
@@ -26,8 +28,14 @@ public class Issue{
     @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description must not be longer then 500 characters.")
     private String description;
 
+    @NotNull(message = "Status should not be empty.")
     private Status status;
+
+    @NotNull(message = "Title should not be empty.")
+    @Size(min=TITLE_MIN_CHAR_SIZE, message = "Title should not contains less than 5 characters.")
+    @Size(max = TITLE_MAX_CHAR_SIZE, message = "Title should not contains more than 35 characters.")
     private String title;
+
     private int numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
