@@ -3,9 +3,13 @@ package com.software.technology.ss2019.dormheroes.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotNull;
+
 public class Status {
     @Id
     private ObjectId _id;
+
+    @NotNull
     private String type;
 
     public Status(ObjectId _id, String type) {
