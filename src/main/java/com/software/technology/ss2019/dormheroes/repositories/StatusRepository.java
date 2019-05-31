@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface StatusRepository extends MongoRepository<Status, String> {
     Status findBy_id(ObjectId _Id);
+
+    @Override
+    void deleteById(String s);
 }
