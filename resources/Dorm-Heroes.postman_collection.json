@@ -7,246 +7,284 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/api/issues/ID",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
+			"name": "Issue",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/issues/",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/issues/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issues",
+								""
+							]
+						},
+						"description": "Getting all saved issues"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/status",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"status"
-					]
+				{
+					"name": "http://localhost:8080/api/issues/ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/issues/5ce93f70a65b5f724cafcde9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issues",
+								"5ce93f70a65b5f724cafcde9"
+							]
+						},
+						"description": "Get issue by Id"
+					},
+					"response": []
 				},
-				"description": "swap Id with a issue's ID"
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/issues/ID",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
+				{
+					"name": "http://localhost:8080/api/issues/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test1\",\n\t\"status\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/issues/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issues",
+								""
+							]
+						},
+						"description": "Creating a new issue"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/issues/5cbdb9d8e605d42b3443c66a",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"issues",
-						"5cbdb9d8e605d42b3443c66a"
-					]
+				{
+					"name": "http://localhost:8080/api/issues/ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"status\" : {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"title\" : \"Test Title\"\n\t\"location\" : \"Uni Bonn without id\",\n\t\"disturbanceType\": {\n    \t\"_id\": \"5cd571fbf3c4a40080a3197e\"\n    },\n\t\"description\" : \"Description-test7\",\n\t\"numberOfInvolvedPeople\": 11\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/issues/5ce93f70a65b5f724cafcde9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issues",
+								"5ce93f70a65b5f724cafcde9"
+							]
+						},
+						"description": "swap Id with a issue's ID"
+					},
+					"response": []
 				},
-				"description": "swap Id with a issues's id to update it"
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/issues/",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/disturbanceType/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"disturbanceType",
-						""
-					]
-				},
-				"description": "Creating a new issue"
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/issues/",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/issues/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"issues",
-						""
-					]
-				},
-				"description": "Getting all saved issues"
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/api/disturbanceType/",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/disturbanceType/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"disturbanceType",
-						""
-					]
+				{
+					"name": "http://localhost:8080/api/issues/ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test2\",\n\t\"status\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/issues/5ce943cca65b5f724cafcdea",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issues",
+								"5ce943cca65b5f724cafcdea"
+							]
+						},
+						"description": "swap Id with a issues's id to update it"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "Every Request for Issue"
 		},
 		{
-			"name": "http://localhost:8080/api/status/",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"type\":\"assigned\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/status/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"status",
-						""
-					]
+			"name": "DisturbanceType",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/disturbanceType/",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/disturbanceType/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"disturbanceType",
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "Every request for DisturbanceType"
 		},
 		{
-			"name": "http://localhost:8080/api/status/5ceabcd532fce31f702264ba",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"type\":\"assigned\"\n}"
+			"name": "Status",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/status/",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/status/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"status",
+								""
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/status/5ceabcd532fce31f702264ba",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"status",
-						"5ceabcd532fce31f702264ba"
-					]
+				{
+					"name": "http://localhost:8080/api/status/5ceabcd532fce31f702264ba",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\":\"assigned\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/status/5ceabcd532fce31f702264ba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"status",
+								"5ceabcd532fce31f702264ba"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "Every request for Status"
 		}
 	],
 	"event": [
