@@ -20,31 +20,30 @@ public class StatusControllerServiceTest {
     @Autowired
     private StatusControllerService statusControllerService;
 
+    private Status createTestStatus(){
+        Status testStatus = new Status();
+        testStatus.setType("testStatusType");
+        return testStatus;
+    }
 
     @Test
     public void listOfAllStatusShouldNotBeEmpty() {
-        ObjectId testId = new ObjectId();
-        Status testStatus = new Status(testId,
-                "created for SpringStatus"
-        );
+        Status testStatus = createTestStatus();
         statusControllerService.createStatus(testStatus);
         List<Status> statusList = statusControllerService.getAllStatus();
         Assert.assertFalse("List of all Status should not be empty", statusList.isEmpty());
-        statusControllerService.deleteStatusById(testId);
+        statusControllerService.deleteStatusById(new ObjectId(testStatus.get_id()));
     }
 
     @Test
     public void deletedStatusShouldNotExistInDB() {
-        ObjectId testId = new ObjectId();
-        Status testStatus = new Status(testId,
-                "created for SpringStatus"
-        );
+        Status testStatus = createTestStatus();
         statusControllerService.createStatus(testStatus);
-        statusControllerService.deleteStatusById(testId);
+        statusControllerService.deleteStatusById(new ObjectId(testStatus.get_id()));
         List<Status> statusList = statusControllerService.getAllStatus();
 
         List<Status> deletedStatus = statusList.stream()
-                .filter(status -> status.get_id().equals(testId.toString()))
+                .filter(status -> status.get_id().equals(testStatus.get_id()))
                 .collect(Collectors.toList());
 
         Assert.assertTrue("The removed Status should not exist in DB", deletedStatus.isEmpty());
@@ -52,19 +51,15 @@ public class StatusControllerServiceTest {
 
     @Test
     public void getStatusByIdShouldReturnTheCorrectStatus() {
-        ObjectId testId = new ObjectId();
-        Status testStatus = new Status(testId,
-                "created for SpringStatus"
-        );
+        Status testStatus = createTestStatus();
         statusControllerService.createStatus(testStatus);
         List<Status> statusList = statusControllerService.getAllStatus();
 
         List<Status> createdStatus = statusList.stream()
-                .filter(status -> status.get_id().equals(testId.toString()))
+                .filter(status -> status.get_id().equals(testStatus.get_id()))
                 .collect(Collectors.toList());
 
         Assert.assertFalse("The searched Status should be an exact match", createdStatus.isEmpty());
-        statusControllerService.deleteStatusById(testId);
+        statusControllerService.deleteStatusById(new ObjectId(testStatus.get_id()));
     }
-
 }

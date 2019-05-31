@@ -40,16 +40,9 @@ public class Issue{
     private Date creationDate;
     private Date lastModifiedDate;
 
-    public Issue(ObjectId _id,Status status,String title, String location, DisturbanceType disturbanceType,
-                 String description, int numberOfInvolvedPeople) {
-        this._id = _id;
-        this.status = status;
-        this.title = title;
-        this.location = location;
-        this.disturbanceType = disturbanceType;
-        this.description = description;
-        this.numberOfInvolvedPeople = numberOfInvolvedPeople;
+    public Issue() {
         this.creationDate = new Date();
+        this._id = new ObjectId();
     }
 
     public String get_id() {
