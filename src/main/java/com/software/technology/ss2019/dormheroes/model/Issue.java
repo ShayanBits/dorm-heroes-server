@@ -10,9 +10,9 @@ import java.util.Date;
 
 public class Issue{
 
-    private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
+    private static final int TITLE_MIN_CHAR_SIZE = 5;
     private static final int TITLE_MAX_CHAR_SIZE = 35;
-    private static final int TITLE_MIN_CHAR_SIZE = 35;
+    private static final int DESCRIPTION_MAX_CHAR_SIZE = 500;
 
     @Id
     private ObjectId _id;
