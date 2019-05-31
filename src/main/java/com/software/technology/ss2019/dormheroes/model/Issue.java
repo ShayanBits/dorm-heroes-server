@@ -31,7 +31,8 @@ public class Issue{
     private Status status;
 
     @NotNull(message = "Title should not be empty.")
-    @Size(min=TITLE_MIN_CHAR_SIZE, max = TITLE_MAX_CHAR_SIZE,message = "Title should ne more than 5 and less than 35 characters.")
+    @Size(min=TITLE_MIN_CHAR_SIZE, message = "Title should not contains less than 5 characters.")
+    @Size(max = TITLE_MAX_CHAR_SIZE, message = "Title should not contains more than 35 characters.")
     private String title;
 
     private int numberOfInvolvedPeople;
