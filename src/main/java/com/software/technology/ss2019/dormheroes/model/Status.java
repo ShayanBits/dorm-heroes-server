@@ -12,9 +12,8 @@ public class Status {
     @NotNull
     private String type;
 
-    public Status(ObjectId _id, String type) {
-        this._id = _id;
-        this.type = type;
+    public Status() {
+       this._id = new ObjectId();
     }
 
     public String get_id() {
