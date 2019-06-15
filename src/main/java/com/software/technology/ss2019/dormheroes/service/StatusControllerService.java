@@ -19,7 +19,7 @@ public class StatusControllerService {
     private StatusRepository statusRepository;
 
     public Status createStatus(Status status){
-        logger.debug("Trying to create new status: " + status.toString());
+        logger.info("Trying to create new status: " + status.toString());
         return statusRepository.insert(status);
     }
 

@@ -17,14 +17,14 @@ public class DisturbanceTypeControllerService {
     private DisturbanceTypeRepository disturbanceTypeRepository;
 
     public List<DisturbanceType> getAllDisturbanceTypes(){
-        logger.debug("Trying to get all disturbanceTypes from repository.");
+        logger.info("Trying to get all disturbanceTypes from repository.");
         List<DisturbanceType> listOfAllDisturbanceTypes= disturbanceTypeRepository.findAll();
-        logger.debug("Received list of all disturbanceTypes. Found " + listOfAllDisturbanceTypes.size() + " entries.");
+        logger.info("Received list of all disturbanceTypes. Found " + listOfAllDisturbanceTypes.size() + " entries.");
         return listOfAllDisturbanceTypes;
     }
 
     public DisturbanceType createDisturbanceType(DisturbanceType disturbanceType){
-        logger.debug("Trying to create a new disturbanceType: " + disturbanceType.toString());
+        logger.info("Trying to create a new disturbanceType: " + disturbanceType.toString());
         return disturbanceTypeRepository.insert(disturbanceType);
     }
 
