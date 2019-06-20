@@ -19,7 +19,7 @@ public class DisturbanceTypeControllerService {
     public List<DisturbanceType> getAllDisturbanceTypes(){
         logger.info("Trying to get all disturbanceTypes from Database.");
         List<DisturbanceType> listOfAllDisturbanceTypes= disturbanceTypeRepository.findAll();
-        logger.info("Received list of all disturbanceTypes. There are " + listOfAllDisturbanceTypes.size() + " entries found.");
+        logger.info("Received the list of all disturbanceTypes. There are " + listOfAllDisturbanceTypes.size() + " entries found.");
         return listOfAllDisturbanceTypes;
     }
 
@@ -31,9 +31,9 @@ public class DisturbanceTypeControllerService {
     }
 
     public void deleteDisturbanceTypeById(ObjectId id){
-        logger.info("Trying to delete disturbanceType by id: " + id.toHexString());
+        logger.info("Trying to delete the disturbanceType by id: " + id.toHexString());
         disturbanceTypeRepository.deleteById(id.toString());
-        logger.info("Successfully deleted disturbanceType with the following id: " + id.toHexString());
+        logger.info("Successfully deleted the disturbanceType with the following id: " + id.toHexString());
     }
 
 }

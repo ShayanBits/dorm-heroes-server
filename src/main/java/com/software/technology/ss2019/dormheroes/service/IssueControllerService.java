@@ -21,9 +21,9 @@ public class IssueControllerService {
     private IssueRepository issueRepository;
 
     public List<Issue> getAllIssues() {
-        logger.info("Trying to receive list of all issues from database.");
+        logger.info("Trying to receive a list of all issues from database.");
         List<Issue> listOfAllIssues = issueRepository.findByOrderByCreationDateDesc();
-        logger.info("Received list of issues. There are " + listOfAllIssues.size() + " issues found.");
+        logger.info("Received the list of issues. There are " + listOfAllIssues.size() + " issues found.");
         return listOfAllIssues;
     }
 
@@ -35,9 +35,9 @@ public class IssueControllerService {
     }
 
     public Issue getIssueById( ObjectId id){
-        logger.info("Trying to find issue by id " + id.toHexString() + " in database");
+        logger.info("Trying to find an issue by id " + id.toHexString() + " in database");
         Issue foundIssueInDB = issueRepository.findBy_id(id);
-        logger.info("Found issue in database:  " + foundIssueInDB.toString());
+        logger.info("Found the following issue in database:  " + foundIssueInDB.toString());
         return foundIssueInDB;
     }
 
@@ -54,11 +54,13 @@ public class IssueControllerService {
         toBeUpdatedIssue.setNumberOfInvolvedPeople(issue.getNumberOfInvolvedPeople());
         toBeUpdatedIssue.setLastModifiedDate(new Date());
         logger.info("Saving updated issue into database with following information: " + toBeUpdatedIssue.toString());
-        return issueRepository.save(toBeUpdatedIssue);
+        Issue updatedIssueInDB = issueRepository.save(toBeUpdatedIssue);
+        logger.info("The following issue has been successfully updated in database: " + updatedIssueInDB.toString());
+        return updatedIssueInDB;
     }
 
     public void deleteIssueById(ObjectId id){
-        logger.info("Trying to delete issue with id: " + id.toHexString());
+        logger.info("Trying to delete the issue with id: " + id.toHexString());
         issueRepository.delete(issueRepository.findBy_id(id));
         logger.info("Deleted the issue with ID: " + id.toHexString());
     }

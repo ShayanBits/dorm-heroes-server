@@ -28,12 +28,12 @@ public class StatusControllerService {
     public List<Status> getAllStatus(){
         logger.info("Trying to get a list of all status.");
         List<Status> listOfAllStatus = statusRepository.findAll();
-        logger.info("Received a list of all status in database. Amount of Status: " + listOfAllStatus.size());
+        logger.info("Received the list of all status from database. Total number of entries: " + listOfAllStatus.size());
         return listOfAllStatus;
     }
 
     public Status getStatusById(ObjectId id){
-        logger.info("Trying to find status which has the id: " + id.toHexString());
+        logger.info("Trying to find the status with the id: " + id.toHexString());
         Status foundStatus = statusRepository.findBy_id(id);
         logger.info("Received the following status from database: " + foundStatus.toString() );
         return foundStatus;
