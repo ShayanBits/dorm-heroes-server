@@ -17,19 +17,23 @@ public class DisturbanceTypeControllerService {
     private DisturbanceTypeRepository disturbanceTypeRepository;
 
     public List<DisturbanceType> getAllDisturbanceTypes(){
-        logger.info("Trying to get all disturbanceTypes from repository.");
+        logger.info("Trying to get all disturbanceTypes from Database.");
         List<DisturbanceType> listOfAllDisturbanceTypes= disturbanceTypeRepository.findAll();
-        logger.info("Received list of all disturbanceTypes. Found " + listOfAllDisturbanceTypes.size() + " entries.");
+        logger.info("Received list of all disturbanceTypes. There are " + listOfAllDisturbanceTypes.size() + " entries found.");
         return listOfAllDisturbanceTypes;
     }
 
     public DisturbanceType createDisturbanceType(DisturbanceType disturbanceType){
-        logger.info("Trying to create a new disturbanceType: " + disturbanceType.toString());
-        return disturbanceTypeRepository.insert(disturbanceType);
+        logger.info("Trying to create the following new disturbanceType: " + disturbanceType.toString());
+        DisturbanceType createdDisturbanceType =  disturbanceTypeRepository.insert(disturbanceType);
+        logger.info("Created the following disturbanceType in database: " + createdDisturbanceType.toString());
+        return createdDisturbanceType;
     }
 
     public void deleteDisturbanceTypeById(ObjectId id){
-        logger.info("Trying to delete disturbance Type by id: " + id.toHexString());
+        logger.info("Trying to delete disturbanceType by id: " + id.toHexString());
         disturbanceTypeRepository.deleteById(id.toString());
+        logger.info("Successfully deleted disturbanceType with the following id: " + id.toHexString());
     }
+
 }

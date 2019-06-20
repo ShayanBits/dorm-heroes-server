@@ -19,8 +19,10 @@ public class StatusControllerService {
     private StatusRepository statusRepository;
 
     public Status createStatus(Status status){
-        logger.info("Trying to create new status: " + status.toString());
-        return statusRepository.insert(status);
+        logger.info("Trying to create the following status: " + status.toString());
+        Status createdStatus = statusRepository.insert(status);
+        logger.info("The following status has been created in database: " + createdStatus.toString());
+        return createdStatus;
     }
 
     public List<Status> getAllStatus(){
@@ -31,14 +33,15 @@ public class StatusControllerService {
     }
 
     public Status getStatusById(ObjectId id){
-        logger.info("Trying to find status by id: " + id.toHexString());
+        logger.info("Trying to find status which has the id: " + id.toHexString());
         Status foundStatus = statusRepository.findBy_id(id);
-        logger.info("Received status from database: " + foundStatus.toString() );
+        logger.info("Received the following status from database: " + foundStatus.toString() );
         return foundStatus;
     }
 
     public void deleteStatusById(ObjectId id){
-        logger.info("Trying to delete status by id: " + id.toHexString());
+        logger.info("Trying to delete status by id with the following id: " + id.toHexString());
         statusRepository.deleteById(id.toString());
+        logger.info("Successfully deleted status with the following id: " + id.toHexString());
     }
 }
