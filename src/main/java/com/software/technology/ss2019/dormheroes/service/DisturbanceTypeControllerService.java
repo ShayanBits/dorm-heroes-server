@@ -17,7 +17,7 @@ public class DisturbanceTypeControllerService {
     private DisturbanceTypeRepository disturbanceTypeRepository;
 
     public List<DisturbanceType> getAllDisturbanceTypes(){
-        logger.info("Trying to get all disturbanceTypes from Database.");
+        logger.info("Trying to get the list of all disturbanceTypes from database.");
         List<DisturbanceType> listOfAllDisturbanceTypes= disturbanceTypeRepository.findAll();
         logger.info("Received the list of all disturbanceTypes. There are " + listOfAllDisturbanceTypes.size() + " entries found.");
         return listOfAllDisturbanceTypes;

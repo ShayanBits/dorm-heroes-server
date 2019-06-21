@@ -21,7 +21,7 @@ public class IssueControllerService {
     private IssueRepository issueRepository;
 
     public List<Issue> getAllIssues() {
-        logger.info("Trying to receive a list of all issues from database.");
+        logger.info("Trying to receive the list of all issues from database.");
         List<Issue> listOfAllIssues = issueRepository.findByOrderByCreationDateDesc();
         logger.info("Received the list of issues. There are " + listOfAllIssues.size() + " issues found.");
         return listOfAllIssues;
@@ -35,7 +35,7 @@ public class IssueControllerService {
     }
 
     public Issue getIssueById( ObjectId id){
-        logger.info("Trying to find an issue by id " + id.toHexString() + " in database");
+        logger.info("Trying to find the issue by id " + id.toHexString() + " in database");
         Issue foundIssueInDB = issueRepository.findBy_id(id);
         logger.info("Found the following issue in database:  " + foundIssueInDB.toString());
         return foundIssueInDB;
@@ -62,7 +62,7 @@ public class IssueControllerService {
     public void deleteIssueById(ObjectId id){
         logger.info("Trying to delete the issue with id: " + id.toHexString());
         issueRepository.delete(issueRepository.findBy_id(id));
-        logger.info("Deleted the issue with ID: " + id.toHexString());
+        logger.info("Deleted the issue with id: " + id.toHexString());
     }
 
 }
