@@ -51,6 +51,6 @@ public class StatusControllerService {
         Status createdStatus = getStatusById(CREATED_STATUS_ID);
         if(createdStatus != null){
             return createdStatus;
-        }else throw new NullPointerException("The Status = \"sent\" could not be found in database");
+        }else throw new NullPointerException("The status = \"sent\" with id " + CREATED_STATUS_ID + " could not be found in database.");
     }
 }
