@@ -34,6 +34,10 @@ public class NumberOfInvolvedPeopleControllerService {
     public NumberOfInvolvedPeopleInterval getIntervalByID(ObjectId id){
         logger.info("Trying to find the interval by id " + id.toHexString() + " in database");
         NumberOfInvolvedPeopleInterval intervalFromDatabase = numberOfInvolvedPeopleRepository.findBy_id(id);
+        if(intervalFromDatabase == null){
+            logger.info("Could not find NumberOfInvolvedPeopleInterval in database with id: " + id.toHexString());
+            throw new NullPointerException("Could not find NumberOfInvolvedPeopleInterval in database with id: " + id.toHexString());
+        }
         logger.info("Found the following interval in database:  " + intervalFromDatabase.toString());
         return intervalFromDatabase;
     }
