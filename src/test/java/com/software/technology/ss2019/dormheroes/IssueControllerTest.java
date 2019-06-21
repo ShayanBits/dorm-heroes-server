@@ -34,7 +34,7 @@ public class IssueControllerTest {
         testIssue.setStatus(status);
         testIssue.setLocation("testLocation");
         testIssue.setTitle("TestTitle");
-        testIssue.setNumberOfInvolvedPeople(5);
+        testIssue.setNumberOfInvolvedPeople("1-3");
         return testIssue;
     }
     @Test

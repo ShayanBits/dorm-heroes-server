@@ -36,7 +36,7 @@ public class Issue{
     @Size(max = TITLE_MAX_CHAR_SIZE, message = "Title should not contains more than 35 characters.")
     private String title;
 
-    private int numberOfInvolvedPeople;
+    private String numberOfInvolvedPeople;
     private Date creationDate;
     private Date lastModifiedDate;
 
@@ -89,11 +89,11 @@ public class Issue{
         this.description = description;
     }
 
-    public int getNumberOfInvolvedPeople() {
+    public String getNumberOfInvolvedPeople() {
         return numberOfInvolvedPeople;
     }
 
-    public void setNumberOfInvolvedPeople(int numberOfInvolvedPeople) {
+    public void setNumberOfInvolvedPeople(String numberOfInvolvedPeople) {
         this.numberOfInvolvedPeople = numberOfInvolvedPeople;
     }
 
