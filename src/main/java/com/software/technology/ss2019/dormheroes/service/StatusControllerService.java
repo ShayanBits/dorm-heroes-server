@@ -18,7 +18,7 @@ public class StatusControllerService {
     @Autowired
     private StatusRepository statusRepository;
 
-    private final ObjectId CREATED_STATUS_ID = new ObjectId("5ceabcca32fce31f702264b9");
+    private final ObjectId SENT_STATUS_ID = new ObjectId("5ceabcca32fce31f702264b9");
 
     public Status createStatus(Status status){
         logger.info("Trying to create the following status: " + status.toString());
@@ -47,10 +47,10 @@ public class StatusControllerService {
         logger.info("Successfully deleted status with the following id: " + id.toHexString());
     }
 
-    public Status getCreatedStatus(){
-        Status createdStatus = getStatusById(CREATED_STATUS_ID);
+    public Status getSentStatus(){
+        Status createdStatus = getStatusById(SENT_STATUS_ID);
         if(createdStatus != null){
             return createdStatus;
-        }else throw new NullPointerException("The status = \"sent\" with id " + CREATED_STATUS_ID + " could not be found in database.");
+        }else throw new NullPointerException("The status = \"sent\" with id " + SENT_STATUS_ID + " could not be found in database.");
     }
 }
