@@ -18,6 +18,8 @@ public class StatusControllerService {
     @Autowired
     private StatusRepository statusRepository;
 
+    private final ObjectId CREATED_STATUS_ID = new ObjectId("5ceabcca32fce31f702264b9");
+
     public Status createStatus(Status status){
         logger.info("Trying to create the following status: " + status.toString());
         Status createdStatus = statusRepository.insert(status);
@@ -43,5 +45,12 @@ public class StatusControllerService {
         logger.info("Trying to delete status with the following id: " + id.toHexString());
         statusRepository.deleteById(id.toString());
         logger.info("Successfully deleted status with the following id: " + id.toHexString());
+    }
+
+    public Status getCreatedStatus(){
+        Status createdStatus = getStatusById(CREATED_STATUS_ID);
+        if(createdStatus != null){
+            return createdStatus;
+        }else throw new NullPointerException("The Status = \"sent\" could not be found in database");
     }
 }

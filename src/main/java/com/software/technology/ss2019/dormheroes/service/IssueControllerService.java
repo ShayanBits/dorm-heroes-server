@@ -31,10 +31,9 @@ public class IssueControllerService {
     }
 
     public Issue createIssue(Issue issue){
-        ObjectId createdStatusDbId = new ObjectId("5ceabcca32fce31f702264b9");
-        Status createdStatus = statusControllerService.getStatusById(createdStatusDbId);
+        final Status CREATED_STATUS_OBJECT_IN_DB = statusControllerService.getCreatedStatus();
         logger.info("Trying to create the following new issue in database: " + issue.toString());
-        issue.setStatus(createdStatus);
+        issue.setStatus(CREATED_STATUS_OBJECT_IN_DB);
         Issue createdIssue = issueRepository.insert(issue);
         logger.info("Issue has been created. Result from server: " + createdIssue.toString());
         return createdIssue;
