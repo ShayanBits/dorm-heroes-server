@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c6f2fcbf-b82a-4ddd-8e62-e12bb15e9159",
+		"_postman_id": "64d765c4-4eea-4712-8ab4-cc41d5433a58",
 		"name": "Dorm-Heroes",
 		"description": "every dorm heroes Api call",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -81,7 +81,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test1\",\n\t\"status\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
+							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test1\",\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/issues/",
