@@ -1,12 +1,12 @@
 package com.software.technology.ss2019.dormheroes.service;
 
 import com.software.technology.ss2019.dormheroes.model.Issue;
+import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -14,6 +14,9 @@ import java.util.List;
 
 @Service
 public class IssueControllerService {
+
+    @Autowired
+    private StatusControllerService statusControllerService;
 
     Logger logger = LoggerFactory.getLogger(IssueControllerService.class);
 
@@ -28,7 +31,9 @@ public class IssueControllerService {
     }
 
     public Issue createIssue(Issue issue){
+        final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
         logger.info("Trying to create the following new issue in database: " + issue.toString());
+        issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
         Issue createdIssue = issueRepository.insert(issue);
         logger.info("Issue has been created. Result from server: " + createdIssue.toString());
         return createdIssue;
