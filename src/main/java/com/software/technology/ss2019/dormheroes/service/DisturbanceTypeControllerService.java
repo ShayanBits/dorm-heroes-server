@@ -13,8 +13,16 @@ import java.util.List;
 public class DisturbanceTypeControllerService {
 
     Logger logger = LoggerFactory.getLogger(DisturbanceTypeControllerService.class);
+
     @Autowired
     private DisturbanceTypeRepository disturbanceTypeRepository;
+
+    DisturbanceType getDisturbanceTypeById(ObjectId id){
+        logger.info("Trying to find the disturbanceType by the following id: " + id.toString());
+        DisturbanceType foundedDisturbanceType = disturbanceTypeRepository.findBy_id(id);
+        logger.info("The following disturbanceType was founded by Id: " + foundedDisturbanceType.toString());
+        return foundedDisturbanceType;
+    }
 
     public List<DisturbanceType> getAllDisturbanceTypes(){
         logger.info("Trying to get the list of all disturbanceTypes from database.");

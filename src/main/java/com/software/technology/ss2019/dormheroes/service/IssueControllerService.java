@@ -1,5 +1,6 @@
 package com.software.technology.ss2019.dormheroes.service;
 
+import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
 import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
@@ -21,7 +22,11 @@ public class IssueControllerService {
     Logger logger = LoggerFactory.getLogger(IssueControllerService.class);
 
     @Autowired
-    private IssueRepository issueRepository;
+    private IssueRepository issueRepository;;
+
+
+    @Autowired
+    private DisturbanceTypeControllerService disturbanceTypeControllerService;
 
     public List<Issue> getAllIssues() {
         logger.info("Trying to receive the list of all issues from database.");
@@ -31,12 +36,19 @@ public class IssueControllerService {
     }
 
     public Issue createIssue(Issue issue){
-        final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
-        logger.info("Trying to create the following new issue in database: " + issue.toString());
-        issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
-        Issue createdIssue = issueRepository.insert(issue);
-        logger.info("Issue has been created. Result from server: " + createdIssue.toString());
-        return createdIssue;
+        DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
+                getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType().get_id()));
+        if ( disturbanceTypeFromRequestedIssue.getIsNumberOfInvolvedPeopleMandatory() && issue.getNumberOfInvolvedPeople() <= 1){
+            throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType().getType());
+        }
+        else {
+            final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
+            logger.info("Trying to create the following new issue in database: " + issue.toString());
+            issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
+            Issue createdIssue = issueRepository.insert(issue);
+            logger.info("Issue has been created. Result from server: " + createdIssue.toString());
+            return createdIssue;
+        }
     }
 
     public Issue getIssueById( ObjectId id){
