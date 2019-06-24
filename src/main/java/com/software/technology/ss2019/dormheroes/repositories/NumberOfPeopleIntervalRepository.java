@@ -4,7 +4,7 @@ import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInt
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface NumberOfPeopleRepository extends MongoRepository<NumberOfInvolvedPeopleInterval, String> {
+public interface NumberOfPeopleIntervalRepository extends MongoRepository<NumberOfInvolvedPeopleInterval, String> {
     NumberOfInvolvedPeopleInterval findBy_id(ObjectId _Id);
 
     @Override

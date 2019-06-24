@@ -10,7 +10,7 @@ public class NumberOfInvolvedPeopleInterval {
     private ObjectId _id;
 
     @NotNull
-    private String number;
+    private String interval;
 
     public NumberOfInvolvedPeopleInterval() {
        this._id = new ObjectId();
@@ -20,19 +20,19 @@ public class NumberOfInvolvedPeopleInterval {
         return this._id.toHexString();
     }
 
-    public String getNumber() {
-        return number;
+    public String getInterval() {
+        return interval;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setInterval(String interval) {
+        this.interval = interval;
     }
 
     @Override
     public String toString() {
         return "Status{" +
                 "_id=" + _id +
-                ", number='" + number + '\'' +
+                ", interval='" + interval + '\'' +
                 '}';
     }
 }
