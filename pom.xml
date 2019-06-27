@@ -41,6 +41,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.8</version>
+				<configuration>
+					<processTypes>
+						<web>java $JAVA_OPTS -cp target/classes:target/dependency/* com.software.technology.ss2019.dormheroes.DormHeroesApplication</web>
+					</processTypes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

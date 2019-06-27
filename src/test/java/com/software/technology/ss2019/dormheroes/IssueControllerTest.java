@@ -26,12 +26,10 @@ public class IssueControllerTest {
     private IssueController controller;
 
     public Issue createTestIssue(){
-        Status status = new Status();
         DisturbanceType disturbanceType = new DisturbanceType();
         Issue testIssue = new Issue();
         testIssue.setDescription("TestDescription");
         testIssue.setDisturbanceType(disturbanceType);
-        testIssue.setStatus(status);
         testIssue.setLocation("testLocation");
         testIssue.setTitle("TestTitle");
         testIssue.setNumberOfInvolvedPeople(5);
