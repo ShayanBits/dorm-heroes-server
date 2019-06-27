@@ -20,6 +20,10 @@ public class DisturbanceTypeControllerService {
     DisturbanceType getDisturbanceTypeById(ObjectId id){
         logger.info("Trying to find the disturbanceType by the following id: " + id.toString());
         DisturbanceType foundDisturbanceType = disturbanceTypeRepository.findBy_id(id);
+        if( foundDisturbanceType == null){
+            logger.info("Could not find any disturbanceType with id " + id.toHexString() + " in database.");
+            return null;
+        }
         logger.info("The following disturbanceType was found by Id: " + foundDisturbanceType.toString());
         return foundDisturbanceType;
     }
