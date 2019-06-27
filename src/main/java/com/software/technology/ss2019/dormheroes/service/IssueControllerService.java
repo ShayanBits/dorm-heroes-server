@@ -22,7 +22,7 @@ public class IssueControllerService {
     Logger logger = LoggerFactory.getLogger(IssueControllerService.class);
 
     @Autowired
-    private IssueRepository issueRepository;;
+    private IssueRepository issueRepository;
 
 
     @Autowired

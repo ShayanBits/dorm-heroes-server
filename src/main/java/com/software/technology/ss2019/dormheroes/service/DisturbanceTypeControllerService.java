@@ -19,9 +19,9 @@ public class DisturbanceTypeControllerService {
 
     DisturbanceType getDisturbanceTypeById(ObjectId id){
         logger.info("Trying to find the disturbanceType by the following id: " + id.toString());
-        DisturbanceType foundedDisturbanceType = disturbanceTypeRepository.findBy_id(id);
-        logger.info("The following disturbanceType was founded by Id: " + foundedDisturbanceType.toString());
-        return foundedDisturbanceType;
+        DisturbanceType foundDisturbanceType = disturbanceTypeRepository.findBy_id(id);
+        logger.info("The following disturbanceType was found by Id: " + foundDisturbanceType.toString());
+        return foundDisturbanceType;
     }
 
     public List<DisturbanceType> getAllDisturbanceTypes(){
