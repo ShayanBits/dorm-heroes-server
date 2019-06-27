@@ -36,12 +36,16 @@ public class IssueControllerService {
     }
 
     public Issue createIssue(Issue issue){
-        DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
-                getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType().get_id()));
-        if ( disturbanceTypeFromRequestedIssue.getIsNumberOfInvolvedPeopleMandatory() && issue.getNumberOfInvolvedPeople() <= 1){
-            throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType().getType());
+
+        if ( !isDisturbanceTypeValid(issue.getDisturbanceType())){
+            throw new IllegalArgumentException("Could not find the disturbanceType from the new issue in database.");
         }
         else {
+            DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
+                    getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType().get_id()));
+            if ( disturbanceTypeFromRequestedIssue.getIsNumberOfInvolvedPeopleMandatory() && issue.getNumberOfInvolvedPeople() <= 1){
+                throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType().getType());
+            }
             final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
             logger.info("Trying to create the following new issue in database: " + issue.toString());
             issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
@@ -49,6 +53,20 @@ public class IssueControllerService {
             logger.info("Issue has been created. Result from server: " + createdIssue.toString());
             return createdIssue;
         }
+    }
+
+    private boolean isDisturbanceTypeValid(DisturbanceType disturbanceType){
+        if( disturbanceType == null ){
+            logger.info("disturbanceType is null.");
+            return false;
+        }
+        DisturbanceType disturbanceTypeFromDB = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
+        if(disturbanceTypeFromDB == null){
+            logger.info("Could not find any disturbanceType with id " + disturbanceType.get_id() + " in database.");
+            return false;
+        }
+        logger.info("Found the following disturbanceType for id: " + disturbanceType.get_id() + " in database: " + disturbanceTypeFromDB.toString());
+        return true;
     }
 
     public Issue getIssueById( ObjectId id){

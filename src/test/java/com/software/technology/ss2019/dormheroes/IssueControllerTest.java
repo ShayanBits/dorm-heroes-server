@@ -4,6 +4,7 @@ import com.software.technology.ss2019.dormheroes.controller.IssueController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
 import com.software.technology.ss2019.dormheroes.model.Status;
+import com.software.technology.ss2019.dormheroes.service.DisturbanceTypeControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,8 +26,12 @@ public class IssueControllerTest {
     @Autowired
     private IssueController controller;
 
+    @Autowired
+    DisturbanceTypeControllerService disturbanceTypeControllerService;
+
     public Issue createTestIssue(){
-        DisturbanceType disturbanceType = new DisturbanceType();
+        DisturbanceType disturbanceType = disturbanceTypeControllerService.getAllDisturbanceTypes().get(0);
+
         Issue testIssue = new Issue();
         testIssue.setDescription("TestDescription");
         testIssue.setDisturbanceType(disturbanceType);
