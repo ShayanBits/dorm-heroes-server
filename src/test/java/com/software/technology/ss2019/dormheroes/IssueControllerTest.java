@@ -1,5 +1,6 @@
 package com.software.technology.ss2019.dormheroes;
 
+import com.software.technology.ss2019.dormheroes.controller.DisturbanceTypeController;
 import com.software.technology.ss2019.dormheroes.controller.IssueController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
@@ -25,16 +26,21 @@ public class IssueControllerTest {
     @Autowired
     private IssueController controller;
 
+    @Autowired
+    private DisturbanceTypeController disturbanceTypeController;
+
+
     public Issue createTestIssue(){
-        DisturbanceType disturbanceType = new DisturbanceType();
+        DisturbanceType disturbanceType = disturbanceTypeController.getAllDisturbanceTypes().get(0);
         Issue testIssue = new Issue();
         testIssue.setDescription("TestDescription");
-        testIssue.setDisturbanceType(disturbanceType);
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         testIssue.setLocation("testLocation");
         testIssue.setTitle("TestTitle");
         testIssue.setNumberOfInvolvedPeople(5);
         return testIssue;
     }
+
     @Test
     public void CreatedIssueShouldEqualsTheSavedIssueInDatabase() {
         Issue testIssue = createTestIssue();

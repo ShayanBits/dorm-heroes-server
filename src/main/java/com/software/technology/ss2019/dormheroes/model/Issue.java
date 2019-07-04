@@ -22,7 +22,7 @@ public class Issue{
     private String location;
 
     @NotNull(message = "Disturbance type must not be empty.")
-    private DisturbanceType disturbanceType;
+    private String disturbanceType;
 
     @NotNull(message = "Description must not be empty.")
     @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description must not be longer then 500 characters.")
@@ -64,11 +64,11 @@ public class Issue{
         this.title = title;
     }
 
-    public DisturbanceType getDisturbanceType() {
+    public String getDisturbanceType() {
         return disturbanceType;
     }
 
-    public void setDisturbanceType(DisturbanceType disturbanceType) {
+    public void setDisturbanceType(String disturbanceType) {
         this.disturbanceType = disturbanceType;
     }
 

@@ -37,9 +37,9 @@ public class IssueControllerService {
 
     public Issue createIssue(Issue issue){
         DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
-                getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType().get_id()));
+                getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType()));
         if ( disturbanceTypeFromRequestedIssue.getIsNumberOfInvolvedPeopleMandatory() && issue.getNumberOfInvolvedPeople() <= 1){
-            throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType().getType());
+            throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType());
         }
         else {
             final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
