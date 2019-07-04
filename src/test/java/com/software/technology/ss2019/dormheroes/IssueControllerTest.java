@@ -3,7 +3,6 @@ package com.software.technology.ss2019.dormheroes;
 import com.software.technology.ss2019.dormheroes.controller.IssueController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
-import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.service.DisturbanceTypeControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
@@ -14,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -29,8 +26,21 @@ public class IssueControllerTest {
     @Autowired
     DisturbanceTypeControllerService disturbanceTypeControllerService;
 
-    public Issue createTestIssue(){
-        DisturbanceType disturbanceType = disturbanceTypeControllerService.getAllDisturbanceTypes().get(0);
+    public Issue createTestIssueWithOptionalInterval(boolean isNumberOfInvolvedPeopleMandatory){
+        DisturbanceType disturbanceType = null;
+        List<DisturbanceType> listOfAllDisturbanceTypes = disturbanceTypeControllerService.getAllDisturbanceTypes();
+        for (int i = 0; i < listOfAllDisturbanceTypes.size(); i++) {
+            boolean isCurrentNumberOfInvolvedPeopleOptionalMandatory = listOfAllDisturbanceTypes.get(i).getIsNumberOfInvolvedPeopleMandatory();
+            if( isNumberOfInvolvedPeopleMandatory && isCurrentNumberOfInvolvedPeopleOptionalMandatory ){
+                disturbanceType = listOfAllDisturbanceTypes.get(i);
+                break;
+            }
+
+            if (isNumberOfInvolvedPeopleMandatory == false && isCurrentNumberOfInvolvedPeopleOptionalMandatory){
+                disturbanceType = listOfAllDisturbanceTypes.get(i);
+                break;
+            }
+        }
 
         Issue testIssue = new Issue();
         testIssue.setDescription("TestDescription");
@@ -40,16 +50,25 @@ public class IssueControllerTest {
         testIssue.setNumberOfInvolvedPeople(5);
         return testIssue;
     }
+
     @Test
-    public void CreatedIssueShouldEqualsTheSavedIssueInDatabase() {
-        Issue testIssue = createTestIssue();
+    public void CreatedIssueWithNumberOfInvolvedPeopleIntervalShouldEqualsTheSavedIssueInDatabase() {
+        Issue testIssue = createTestIssueWithOptionalInterval(true);
+        Issue savedIssueInDB = controller.createIssue(testIssue);
+        Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue, savedIssueInDB);
+    }
+
+
+    @Test
+    public void CreatedIssueWithoutNumberOfInvolvedPeopleIntervalShouldEqualsTheSavedIssueInDatabase() {
+        Issue testIssue = createTestIssueWithOptionalInterval(false);
         Issue savedIssueInDB = controller.createIssue(testIssue);
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue, savedIssueInDB);
     }
 
     @Test
     public void listOfAllIssuesShouldNotBeEmpty() {
-        Issue testIssue = createTestIssue();
+        Issue testIssue = createTestIssueWithOptionalInterval(false);
         controller.createIssue(testIssue);
         List<Issue> issues = controller.getAllIssues();
         Assert.assertFalse("List of issues should not be empty.", issues.isEmpty());
@@ -58,7 +77,7 @@ public class IssueControllerTest {
 
     @Test
     public void updatedIssueShouldBeSavedInDatabase() {
-        Issue testIssue = createTestIssue();
+        Issue testIssue = createTestIssueWithOptionalInterval(false);
         controller.createIssue(testIssue);
         testIssue.setDescription("DescriptionNew");
 
@@ -68,7 +87,7 @@ public class IssueControllerTest {
 
     @Test
     public void getIssueByIdShouldReturnTheCorrectIssue() {
-        Issue testIssue = createTestIssue();
+        Issue testIssue = createTestIssueWithOptionalInterval(false);
         controller.createIssue(testIssue);
         Issue issueFromDB = controller.getIssueById(new ObjectId(testIssue.get_id()));
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue.toString(), issueFromDB.toString());
@@ -76,7 +95,7 @@ public class IssueControllerTest {
 
     @Test
     public void deletedIssueShouldNotBeInDB() {
-        Issue testIssue = createTestIssue();
+        Issue testIssue = createTestIssueWithOptionalInterval(false);
         controller.createIssue(testIssue);
         controller.deleteIssueById(new ObjectId(testIssue.get_id()));
         Issue deletedIssue = controller.getIssueById(new ObjectId(testIssue.get_id()));

@@ -37,8 +37,8 @@ public class IssueControllerService {
 
     public Issue createIssue(Issue issue){
 
-        if ( !isDisturbanceTypeValid(issue.getDisturbanceType())){
-            throw new IllegalArgumentException("Could not find the disturbanceType from the new issue in database.");
+        if ( !disturbanceTypeControllerService.isDisturbanceTypeValid(issue.getDisturbanceType())){
+            throw new IllegalArgumentException("Could not find the given disturbanceType in database.");
         }
         else {
             DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
@@ -53,20 +53,6 @@ public class IssueControllerService {
             logger.info("Issue has been created. Result from server: " + createdIssue.toString());
             return createdIssue;
         }
-    }
-
-    private boolean isDisturbanceTypeValid(DisturbanceType disturbanceType){
-        if( disturbanceType == null ){
-            logger.info("disturbanceType is null.");
-            return false;
-        }
-        DisturbanceType disturbanceTypeFromDB = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
-        if(disturbanceTypeFromDB == null){
-            logger.info("Could not find any disturbanceType with id " + disturbanceType.get_id() + " in database.");
-            return false;
-        }
-        logger.info("Found the following disturbanceType for id: " + disturbanceType.get_id() + " in database: " + disturbanceTypeFromDB.toString());
-        return true;
     }
 
     public Issue getIssueById( ObjectId id){

@@ -48,4 +48,19 @@ public class DisturbanceTypeControllerService {
         logger.info("Successfully deleted the disturbanceType with the following id: " + id.toHexString());
     }
 
+
+    protected boolean isDisturbanceTypeValid(DisturbanceType disturbanceType){
+        if( disturbanceType == null ){
+            logger.info("disturbanceType is null.");
+            return false;
+        }
+        DisturbanceType disturbanceTypeFromDB = getDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
+        if(disturbanceTypeFromDB == null){
+            logger.info("Could not find any disturbanceType with id " + disturbanceType.get_id() + " in database.");
+            return false;
+        }
+        logger.info("Found the following disturbanceType for id: " + disturbanceType.get_id() + " in database: " + disturbanceTypeFromDB.toString());
+        return true;
+    }
+
 }
