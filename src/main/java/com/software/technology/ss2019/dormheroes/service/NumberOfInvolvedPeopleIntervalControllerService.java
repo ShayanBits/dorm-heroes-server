@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -15,23 +16,27 @@ public class NumberOfInvolvedPeopleIntervalControllerService {
     private final Logger logger = LoggerFactory.getLogger(NumberOfInvolvedPeopleIntervalControllerService.class);
 
     @Autowired
-    private NumberOfPeopleIntervalRepository numberOfInvolvedPeopleRepository;
+    private NumberOfPeopleIntervalRepository numberOfInvolvedPeopleIntervalRepository;
 
     public List<NumberOfInvolvedPeopleInterval> getAllIntervals(){
         logger.info("Trying to get the list of all intervals from database");
-        List<NumberOfInvolvedPeopleInterval> listOfAllIntervals = numberOfInvolvedPeopleRepository.findAll();
+        List<NumberOfInvolvedPeopleInterval> listOfAllIntervals = numberOfInvolvedPeopleIntervalRepository.findAll();
+        if(listOfAllIntervals == null || listOfAllIntervals.isEmpty()){
+            logger.info("No entries in database found.");
+            return Collections.emptyList();
+        }
         logger.info("Received the list of all intervals from database. There are " + listOfAllIntervals.size() + " intervals found.");
         return listOfAllIntervals;
     }
 
-    public NumberOfInvolvedPeopleInterval getIntervalByID(ObjectId id){
-        logger.info("Trying to find the interval by id " + id.toHexString() + " in database");
-        NumberOfInvolvedPeopleInterval intervalFromDatabase = numberOfInvolvedPeopleRepository.findBy_id(id);
-        if(intervalFromDatabase == null){
-            logger.info("Could not find NumberOfInvolvedPeopleInterval in database with id: " + id.toHexString());
-            throw new NullPointerException("Could not find NumberOfInvolvedPeopleInterval in database with id: " + id.toHexString());
+    public NumberOfInvolvedPeopleInterval getNumberOfInvolvedPeopleIntervalByID(ObjectId id){
+        logger.info("Trying to find the interval by the id " + id.toHexString() + " in database");
+        NumberOfInvolvedPeopleInterval numbertOfInvolvedPeopleintervalFromDatabase = numberOfInvolvedPeopleIntervalRepository.findBy_id(id);
+        if(numbertOfInvolvedPeopleintervalFromDatabase == null){
+            logger.info("Could not find NumberOfInvolvedPeopleInterval in database by the id: " + id.toHexString());
+            throw new NullPointerException("Could not find NumberOfInvolvedPeopleInterval in database by the id: " + id.toHexString());
         }
-        logger.info("Found the following interval in database:  " + intervalFromDatabase.toString());
-        return intervalFromDatabase;
+        logger.info("Found the following NumberOfInvolvedPeopleInterval in database:  " + numbertOfInvolvedPeopleintervalFromDatabase.toString());
+        return numbertOfInvolvedPeopleintervalFromDatabase;
     }
 }

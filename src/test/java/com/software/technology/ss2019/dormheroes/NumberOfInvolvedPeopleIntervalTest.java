@@ -35,7 +35,7 @@ public class NumberOfInvolvedPeopleIntervalTest {
         List<NumberOfInvolvedPeopleInterval> listOfAllIntervals = numberOfInvolvedPeopleIntervalControllerService.getAllIntervals();
         NumberOfInvolvedPeopleInterval selectedIntervalFromList = listOfAllIntervals.get(0);
         Assert.assertNotNull("The list should have at least one interval but the first interval is null", selectedIntervalFromList);
-        NumberOfInvolvedPeopleInterval intervalFromDatabaseByID = numberOfInvolvedPeopleIntervalControllerService.getIntervalByID(new ObjectId(selectedIntervalFromList.get_id()));
+        NumberOfInvolvedPeopleInterval intervalFromDatabaseByID = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(selectedIntervalFromList.get_id()));
         Assert.assertEquals("Both interval from databse should be equal but they are not.", selectedIntervalFromList.toString(), intervalFromDatabaseByID.toString());
     }
 }

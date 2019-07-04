@@ -25,6 +25,6 @@ public class NumberOfInvolvedPeopleIntervalController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public NumberOfInvolvedPeopleInterval getIntervalByID(@PathVariable("id") ObjectId id){
-        return numberOfInvolvedPeopleIntervalControllerService.getIntervalByID(id);
+        return numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(id);
     }
 }
