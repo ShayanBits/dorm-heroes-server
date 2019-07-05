@@ -32,6 +32,7 @@ public class IssueControllerService {
     @Autowired
     private DisturbanceTypeControllerService disturbanceTypeControllerService;
 
+
     public List<Issue> getAllIssues() {
         logger.info("Trying to receive the list of all issues from database.");
         List<Issue> listOfAllIssues = issueRepository.findByOrderByCreationDateDesc();
@@ -54,7 +55,7 @@ public class IssueControllerService {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople is mandatory but there is no interval in database with the id: " + issue.getNumberOfInvolvedPeople());
         }
 
-        final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
+        final String SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus().get_id();
         logger.info("Trying to create the following new issue in database: " + issue.toString());
         issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
         Issue createdIssue = issueRepository.insert(issue);
@@ -70,6 +71,32 @@ public class IssueControllerService {
             logger.info("There is no issue found in database with the id: " + id.toHexString());
             return null;
         }
+
+        DisturbanceType foundDisturbanceTypeFromDatabase = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(foundIssueInDB.getDisturbanceType()));
+
+        if (foundDisturbanceTypeFromDatabase == null){
+            logger.info("There is no disturbanceType in database with the id: " + foundIssueInDB.getDisturbanceType());
+            return null;
+        }
+        foundIssueInDB.setDisturbanceType(foundDisturbanceTypeFromDatabase.getType());
+
+        Status foundStatusFromDatabase = statusControllerService.getStatusById(new ObjectId(foundIssueInDB.getStatus()));
+        if (foundStatusFromDatabase == null){
+            logger.info("There is no status in database with the id: " + foundIssueInDB.getDisturbanceType());
+            return null;
+        }
+        foundIssueInDB.setStatus(foundStatusFromDatabase.getType());
+
+        if(foundIssueInDB.getNumberOfInvolvedPeople() != null ){
+            NumberOfInvolvedPeopleInterval foundNumberOfInvolvedPeopleInterval = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID (new ObjectId(foundIssueInDB.getNumberOfInvolvedPeople()));
+            if (foundNumberOfInvolvedPeopleInterval == null){
+                logger.info("There is no numberOfInvolvedPeopleInterval in database with the id: " + foundIssueInDB.getNumberOfInvolvedPeople());
+                return null;
+            }
+            foundIssueInDB.setNumberOfInvolvedPeople(foundNumberOfInvolvedPeopleInterval.getInterval());
+        }
+
+
         logger.info("Found the following issue in database:  " + foundIssueInDB.toString());
         return foundIssueInDB;
     }
