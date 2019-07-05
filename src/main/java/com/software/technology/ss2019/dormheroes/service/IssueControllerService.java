@@ -36,12 +36,16 @@ public class IssueControllerService {
     }
 
     public Issue createIssue(Issue issue){
-        DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
-                getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType().get_id()));
-        if ( disturbanceTypeFromRequestedIssue.getIsNumberOfInvolvedPeopleMandatory() && issue.getNumberOfInvolvedPeople().isEmpty()){
-            throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType().getType());
+
+        if ( !disturbanceTypeControllerService.isDisturbanceTypeValid(issue.getDisturbanceType())){
+            throw new IllegalArgumentException("Could not find the given disturbanceType in database.");
         }
         else {
+            DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
+                    getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType().get_id()));
+            if ( disturbanceTypeFromRequestedIssue.getIsNumberOfInvolvedPeopleMandatory() && issue.getNumberOfInvolvedPeople() < 1){
+                throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType().getType());
+            }
             final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
             logger.info("Trying to create the following new issue in database: " + issue.toString());
             issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
