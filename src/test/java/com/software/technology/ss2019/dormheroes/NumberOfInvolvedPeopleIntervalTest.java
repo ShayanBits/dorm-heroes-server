@@ -30,9 +30,10 @@ public class NumberOfInvolvedPeopleIntervalTest {
 
     @Test
     public void listOfAllIntervalsShouldNotBeEmpty() {
-        numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createTestNumberOfInvolvedPeopleInterval());
-        List<NumberOfInvolvedPeopleInterval> statusList = numberOfInvolvedPeopleIntervalControllerService.getAllIntervals();
-        Assert.assertFalse("List of all Status should not be empty", statusList.isEmpty());
+        NumberOfInvolvedPeopleInterval createdNumberOfInvolvedPeopleInterval = createTestNumberOfInvolvedPeopleInterval();
+        numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createdNumberOfInvolvedPeopleInterval);
+        List<NumberOfInvolvedPeopleInterval> NumberOfInvolvedPeopleIntervalList = numberOfInvolvedPeopleIntervalControllerService.getAllIntervals();
+        Assert.assertFalse("List of all NumberOfInvolvedPeopleInterval should not be empty", NumberOfInvolvedPeopleIntervalList.isEmpty());
         numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createTestNumberOfInvolvedPeopleInterval().get_id()));
     }
 
@@ -40,8 +41,8 @@ public class NumberOfInvolvedPeopleIntervalTest {
     public void getIntervalByIdShouldReturnTheCorrectInterval() {
         NumberOfInvolvedPeopleInterval createdNumberOfInvolvedPeopleInterval = createTestNumberOfInvolvedPeopleInterval();
         numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createdNumberOfInvolvedPeopleInterval);
-        NumberOfInvolvedPeopleInterval receivecNumberOfInvolvedPeopleInterval = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
-        Assert.assertEquals("Both interval from databse should be equal but they are not.", createdNumberOfInvolvedPeopleInterval.toString(), receivecNumberOfInvolvedPeopleInterval.toString());
+        NumberOfInvolvedPeopleInterval receivedNumberOfInvolvedPeopleInterval = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
+        Assert.assertEquals("Both interval from Database should be equal but they are not.", createdNumberOfInvolvedPeopleInterval.toString(), receivedNumberOfInvolvedPeopleInterval.toString());
         numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
     }
 
@@ -51,6 +52,6 @@ public class NumberOfInvolvedPeopleIntervalTest {
         numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createdNumberOfInvolvedPeopleInterval);
         numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
         NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleIntervalFromDatabase = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
-        Assert.assertNull("Intervall should be null but it is not.", numberOfInvolvedPeopleIntervalFromDatabase);
+        Assert.assertNull("Interval should be null but it is not.", numberOfInvolvedPeopleIntervalFromDatabase);
     }
 }
