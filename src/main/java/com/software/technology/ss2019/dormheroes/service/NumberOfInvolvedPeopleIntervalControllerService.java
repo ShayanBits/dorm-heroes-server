@@ -31,13 +31,13 @@ public class NumberOfInvolvedPeopleIntervalControllerService {
 
     public NumberOfInvolvedPeopleInterval getNumberOfInvolvedPeopleIntervalByID(ObjectId id){
         logger.info("Trying to find the interval by the id " + id.toHexString() + " in database");
-        NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleIntervalFromDatabase = numberOfInvolvedPeopleIntervalRepository.findBy_id(id);
-        if (numberOfInvolvedPeopleIntervalFromDatabase == null) {
+        NumberOfInvolvedPeopleInterval numbertOfInvolvedPeopleintervalFromDatabase = numberOfInvolvedPeopleIntervalRepository.findBy_id(id);
+        if (numbertOfInvolvedPeopleintervalFromDatabase == null) {
             logger.info("Could not find NumberOfInvolvedPeopleInterval in database by the id: " + id.toHexString());
             return null;
         }
-        logger.info("Found the following NumberOfInvolvedPeopleInterval in database:  " + numberOfInvolvedPeopleIntervalFromDatabase.toString());
-        return numberOfInvolvedPeopleIntervalFromDatabase;
+        logger.info("Found the following NumberOfInvolvedPeopleInterval in database:  " + numbertOfInvolvedPeopleintervalFromDatabase.toString());
+        return numbertOfInvolvedPeopleintervalFromDatabase;
     }
 
     public NumberOfInvolvedPeopleInterval createNumberOfInvolvedPeopleInterval(NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleInterval){
