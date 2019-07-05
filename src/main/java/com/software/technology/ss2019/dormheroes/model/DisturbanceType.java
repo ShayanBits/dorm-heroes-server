@@ -13,6 +13,9 @@ public class DisturbanceType {
     @NotNull(message = "Disturbance type must not be empty.")
     private String type;
 
+    @NotNull(message = "isNumberOfInvolvedPeopleMandatory field must not be empty.")
+    private Boolean isNumberOfInvolvedPeopleMandatory;
+
     public DisturbanceType() {
     this._id = new ObjectId();
     }
@@ -27,6 +30,14 @@ public class DisturbanceType {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Boolean getIsNumberOfInvolvedPeopleMandatory() {
+        return isNumberOfInvolvedPeopleMandatory;
+    }
+
+    public void setIsNumberOfInvolvedPeopleMandatory(Boolean isNumberOfInvolvedPeopleMandatory) {
+        this.isNumberOfInvolvedPeopleMandatory = isNumberOfInvolvedPeopleMandatory;
     }
 
     @Override
