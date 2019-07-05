@@ -3,7 +3,7 @@ package com.software.technology.ss2019.dormheroes;
 import com.software.technology.ss2019.dormheroes.controller.IssueController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
-import com.software.technology.ss2019.dormheroes.model.Status;
+import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -27,12 +25,13 @@ public class IssueControllerTest {
 
     public Issue createTestIssue(){
         DisturbanceType disturbanceType = new DisturbanceType();
+        NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
         Issue testIssue = new Issue();
         testIssue.setDescription("TestDescription");
         testIssue.setDisturbanceType(disturbanceType);
         testIssue.setLocation("testLocation");
         testIssue.setTitle("TestTitle");
-        testIssue.setNumberOfInvolvedPeople("1-3"); //TODO ID
+        testIssue.setNumberOfInvolvedPeople(numberOfInvolvedPeopleInterval.get_id());
         return testIssue;
     }
     @Test
