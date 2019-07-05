@@ -1,5 +1,6 @@
 package com.software.technology.ss2019.dormheroes;
 
+import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import com.software.technology.ss2019.dormheroes.service.NumberOfInvolvedPeopleIntervalControllerService;
 import org.bson.types.ObjectId;
@@ -21,21 +22,35 @@ public class NumberOfInvolvedPeopleIntervalTest {
     @Autowired
     private NumberOfInvolvedPeopleIntervalControllerService numberOfInvolvedPeopleIntervalControllerService;
 
+    private NumberOfInvolvedPeopleInterval createTestNumberOfInvolvedPeopleInterval(){
+        NumberOfInvolvedPeopleInterval testNumberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
+        testNumberOfInvolvedPeopleInterval.setInterval("0-99");
+        return testNumberOfInvolvedPeopleInterval;
+    }
 
     @Test
     public void listOfAllIntervalsShouldNotBeEmpty() {
+        numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createTestNumberOfInvolvedPeopleInterval());
         List<NumberOfInvolvedPeopleInterval> statusList = numberOfInvolvedPeopleIntervalControllerService.getAllIntervals();
         Assert.assertFalse("List of all Status should not be empty", statusList.isEmpty());
+        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createTestNumberOfInvolvedPeopleInterval().get_id()));
     }
-
-
 
     @Test
     public void getIntervalByIdShouldReturnTheCorrectInterval() {
-        List<NumberOfInvolvedPeopleInterval> listOfAllIntervals = numberOfInvolvedPeopleIntervalControllerService.getAllIntervals();
-        NumberOfInvolvedPeopleInterval selectedIntervalFromList = listOfAllIntervals.get(0);
-        Assert.assertNotNull("The list should have at least one interval but the first interval is null", selectedIntervalFromList);
-        NumberOfInvolvedPeopleInterval intervalFromDatabaseByID = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(selectedIntervalFromList.get_id()));
-        Assert.assertEquals("Both interval from databse should be equal but they are not.", selectedIntervalFromList.toString(), intervalFromDatabaseByID.toString());
+        NumberOfInvolvedPeopleInterval createdNumberOfInvolvedPeopleInterval = createTestNumberOfInvolvedPeopleInterval();
+        numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createdNumberOfInvolvedPeopleInterval);
+        NumberOfInvolvedPeopleInterval receivecNumberOfInvolvedPeopleInterval = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
+        Assert.assertEquals("Both interval from databse should be equal but they are not.", createdNumberOfInvolvedPeopleInterval.toString(), receivecNumberOfInvolvedPeopleInterval.toString());
+        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
+    }
+
+    @Test
+    public void deletedIntervalShouldNotBeInDatabase() {
+        NumberOfInvolvedPeopleInterval createdNumberOfInvolvedPeopleInterval = createTestNumberOfInvolvedPeopleInterval();
+        numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createdNumberOfInvolvedPeopleInterval);
+        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
+        NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleIntervalFromDatabase = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
+        Assert.assertNull("Intervall should be null but it is not.", numberOfInvolvedPeopleIntervalFromDatabase);
     }
 }

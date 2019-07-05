@@ -34,7 +34,7 @@ public class IssueControllerTest {
         testIssue.setStatus(status);
         testIssue.setLocation("testLocation");
         testIssue.setTitle("TestTitle");
-        testIssue.setNumberOfInvolvedPeople("1-3");
+        testIssue.setNumberOfInvolvedPeople("1-3"); //TODO ID
         return testIssue;
     }
     @Test

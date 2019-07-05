@@ -37,6 +37,10 @@ public class IssueControllerService {
     public Issue getIssueById( ObjectId id){
         logger.info("Trying to find the issue by id " + id.toHexString() + " in database");
         Issue foundIssueInDB = issueRepository.findBy_id(id);
+        if(foundIssueInDB == null){
+            logger.info("There is no issue found in database with the id: " + id.toHexString());
+            return null;
+        }
         logger.info("Found the following issue in database:  " + foundIssueInDB.toString());
         return foundIssueInDB;
     }
