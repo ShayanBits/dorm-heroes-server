@@ -2,6 +2,7 @@ package com.software.technology.ss2019.dormheroes.service;
 
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
+import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 import org.bson.types.ObjectId;
@@ -18,6 +19,9 @@ public class IssueControllerService {
 
     @Autowired
     private StatusControllerService statusControllerService;
+
+    @Autowired
+    private NumberOfInvolvedPeopleIntervalControllerService numberOfInvolvedPeopleIntervalControllerService;
 
     Logger logger = LoggerFactory.getLogger(IssueControllerService.class);
 
@@ -37,23 +41,27 @@ public class IssueControllerService {
 
     public Issue createIssue(Issue issue){
 
-        if ( !disturbanceTypeControllerService.isDisturbanceTypeValid(issue.getDisturbanceType())){
+        DisturbanceType disturbanceType = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType()));
+        if ( disturbanceType == null ){
             throw new IllegalArgumentException("Could not find the given disturbanceType in database.");
         }
-        else {
-            DisturbanceType disturbanceTypeFromRequestedIssue = disturbanceTypeControllerService.
-                    getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType().get_id()));
-            if (disturbanceTypeFromRequestedIssue.getIsNumberOfInvolvedPeopleMandatory() && issue.getNumberOfInvolvedPeople().isEmpty()) {
-                throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType is : " + issue.getDisturbanceType().getType());
-            }
-            final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
-            logger.info("Trying to create the following new issue in database: " + issue.toString());
-            issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
-            Issue createdIssue = issueRepository.insert(issue);
-            logger.info("Issue has been created. Result from server: " + createdIssue.toString());
-            return createdIssue;
+
+        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && (issue.getNumberOfInvolvedPeople() == null || issue.getNumberOfInvolvedPeople().isEmpty())) {
+            throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType has the id : " + issue.getDisturbanceType());
         }
+
+        if ( disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(issue.getNumberOfInvolvedPeople())) == null){
+            throw new IllegalArgumentException("The field numberOfInvolvedPeople is mandatory but there is no interval in database with the id: " + issue.getNumberOfInvolvedPeople());
+        }
+
+        final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
+        logger.info("Trying to create the following new issue in database: " + issue.toString());
+        issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
+        Issue createdIssue = issueRepository.insert(issue);
+        logger.info("Issue has been created. Result from server: " + createdIssue.toString());
+        return createdIssue;
     }
+
 
     public Issue getIssueById( ObjectId id){
         logger.info("Trying to find the issue by id " + id.toHexString() + " in database");
