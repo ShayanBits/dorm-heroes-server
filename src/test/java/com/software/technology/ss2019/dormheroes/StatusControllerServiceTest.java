@@ -4,6 +4,7 @@ import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.service.StatusControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class StatusControllerServiceTest {
     @Autowired
     private StatusControllerService statusControllerService;
 
+    @Ignore
     private Status createTestStatus(){
         Status testStatus = new Status();
         testStatus.setType("testStatusType");
