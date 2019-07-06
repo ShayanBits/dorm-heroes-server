@@ -57,7 +57,7 @@ public class IssueControllerService {
             }else {
                 DisturbanceType foundDisturbanceTypeFromDatabase = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType()));
                 if (foundDisturbanceTypeFromDatabase == null){
-                    logger.info("There is no disturbanceType in database with the id: " + disturbanceTypeID + ". Removing issue from the list.);
+                    logger.info("There is no disturbanceType in database with the id: " + disturbanceTypeID + ". Removing issue from the list.");
                     listOfAllIssues.remove(issue);
                     i--;
                     continue;
