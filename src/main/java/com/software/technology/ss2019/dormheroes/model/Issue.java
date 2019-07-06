@@ -18,10 +18,10 @@ public class Issue{
     private ObjectId _id;
 
     @NotNull(message = "Location type must not be empty.")
-
     private String location;
 
     @NotNull(message = "Disturbance type must not be empty.")
+    @Size(min = 24, max = 24, message = "Invalid ID. ID sould be 24 characters long. ")
     private String disturbanceType;
 
     @NotNull(message = "Description must not be empty.")

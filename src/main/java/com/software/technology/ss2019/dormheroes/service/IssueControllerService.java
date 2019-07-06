@@ -2,6 +2,7 @@ package com.software.technology.ss2019.dormheroes.service;
 
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
+import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 import org.bson.types.ObjectId;
@@ -10,9 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class IssueControllerService {
@@ -34,6 +33,11 @@ public class IssueControllerService {
 
 
     public List<Issue> getAllIssues() {
+        Map<String, String> mappedDisturbanceTypes = new HashMap<>();
+        Map<String, String> mappedStatus = new HashMap<>();
+        Map<String, String> mappedInterval = new HashMap<>();
+
+
         logger.info("Trying to receive the list of all issues from database.");
         List<Issue> listOfAllIssues = issueRepository.findByOrderByCreationDateDesc();
         if(listOfAllIssues == null || listOfAllIssues.isEmpty()){
@@ -42,6 +46,51 @@ public class IssueControllerService {
         }
 
         logger.info("Received the list of issues. There are " + listOfAllIssues.size() + " issues found.");
+
+        for (Issue issue : listOfAllIssues) {
+
+            String disturbanceTypeID = issue.getDisturbanceType();
+            if(mappedDisturbanceTypes.get(disturbanceTypeID) != null){
+                issue.setDisturbanceType(mappedDisturbanceTypes.get(disturbanceTypeID));
+            }else {
+                DisturbanceType foundDisturbanceTypeFromDatabase = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType()));
+                if (foundDisturbanceTypeFromDatabase == null){
+                    logger.info("There is no disturbanceType in database with the id: " + disturbanceTypeID);
+                    continue;
+                }
+                issue.setDisturbanceType(foundDisturbanceTypeFromDatabase.getType());
+            }
+
+            String statusID = issue.getStatus();
+            if(mappedStatus.get(statusID) != null){
+                issue.setStatus(mappedStatus.get(statusID));
+            }else {
+                Status foundStatusInDatabase = statusControllerService.getStatusById(new ObjectId(statusID));
+                if (foundStatusInDatabase == null){
+                    logger.info("There is no status in database with the id: " + statusID);
+                    continue;
+                }
+                issue.setStatus(foundStatusInDatabase.getType());
+            }
+
+            String intervalID = issue.getNumberOfInvolvedPeople();
+            if(intervalID == null){
+                continue;
+            }
+            if(mappedInterval.get(intervalID) != null){
+                issue.setNumberOfInvolvedPeople(mappedStatus.get(intervalID));
+            }else {
+                NumberOfInvolvedPeopleInterval foundIntervalInDatabase = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(intervalID));
+                if (foundIntervalInDatabase == null){
+                    logger.info("There is no NumberOfInvolvedPeopleInterval in database with the id: " + intervalID);
+                    continue;
+                }
+                issue.setNumberOfInvolvedPeople(foundIntervalInDatabase.getInterval());
+            }
+
+
+
+        }
         return listOfAllIssues;
     }
 
