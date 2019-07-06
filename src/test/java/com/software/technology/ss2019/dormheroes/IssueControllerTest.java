@@ -45,10 +45,10 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(true);
-        DisturbanceType createdDisturbanceType = disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(createdDisturbanceType.get_id());
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         Issue savedIssueInDB = issueController.createIssue(testIssue);
         issueController.deleteIssueById(new ObjectId(savedIssueInDB.get_id()));
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue, savedIssueInDB);
@@ -60,10 +60,10 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(false);
-        DisturbanceType createdDisturbanceType = disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(createdDisturbanceType.get_id());
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         Issue savedIssueInDB = issueController.createIssue(testIssue);
         disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
         issueController.deleteIssueById(new ObjectId(testIssue.get_id()));
@@ -75,10 +75,10 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(false);
-        DisturbanceType createdDisturbanceType = disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(createdDisturbanceType.get_id());
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         issueController.createIssue(testIssue);
         List<Issue> issues = issueController.getAllIssues();
         disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
@@ -91,10 +91,10 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(false);
-        DisturbanceType createdDisturbanceType = disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(createdDisturbanceType.get_id());
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         issueController.createIssue(testIssue);
         testIssue.setDescription("DescriptionNew");
 
@@ -108,10 +108,10 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(false);
-        DisturbanceType createdDisturbanceType = disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(createdDisturbanceType.get_id());
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         issueController.createIssue(testIssue);
         Issue issueFromDB = issueController.getIssueById(new ObjectId(testIssue.get_id()));
         disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
@@ -123,10 +123,10 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(false);
-        DisturbanceType createdDisturbanceType = disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(createdDisturbanceType.get_id());
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         issueController.createIssue(testIssue);
         issueController.deleteIssueById(new ObjectId(testIssue.get_id()));
         Issue deletedIssue = issueController.getIssueById(new ObjectId(testIssue.get_id()));
