@@ -47,7 +47,9 @@ public class IssueControllerService {
 
         logger.info("Received the list of issues. There are " + listOfAllIssues.size() + " issues found.");
 
-        for (Issue issue : listOfAllIssues) {
+        for (int i = 0; i < listOfAllIssues.size(); i++) {
+            Issue issue = listOfAllIssues.get(i);
+
 
             String disturbanceTypeID = issue.getDisturbanceType();
             if(mappedDisturbanceTypes.get(disturbanceTypeID) != null){
@@ -55,7 +57,9 @@ public class IssueControllerService {
             }else {
                 DisturbanceType foundDisturbanceTypeFromDatabase = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType()));
                 if (foundDisturbanceTypeFromDatabase == null){
-                    logger.info("There is no disturbanceType in database with the id: " + disturbanceTypeID);
+                    logger.info("There is no disturbanceType in database with the id: " + disturbanceTypeID + ". Removing issue from the list.);
+                    listOfAllIssues.remove(issue);
+                    i--;
                     continue;
                 }
                 issue.setDisturbanceType(foundDisturbanceTypeFromDatabase.getType());
@@ -67,7 +71,9 @@ public class IssueControllerService {
             }else {
                 Status foundStatusInDatabase = statusControllerService.getStatusById(new ObjectId(statusID));
                 if (foundStatusInDatabase == null){
-                    logger.info("There is no status in database with the id: " + statusID);
+                    logger.info("There is no status in database with the id: " + statusID + ". Removing issue from the list.");
+                    listOfAllIssues.remove(issue);
+                    i--;
                     continue;
                 }
                 issue.setStatus(foundStatusInDatabase.getType());
@@ -82,15 +88,17 @@ public class IssueControllerService {
             }else {
                 NumberOfInvolvedPeopleInterval foundIntervalInDatabase = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(intervalID));
                 if (foundIntervalInDatabase == null){
-                    logger.info("There is no NumberOfInvolvedPeopleInterval in database with the id: " + intervalID);
+                    logger.info("There is no NumberOfInvolvedPeopleInterval in database with the id: " + intervalID + ". Removing issue from the list.");
+                    listOfAllIssues.remove(issue);
+                    i--;
                     continue;
                 }
                 issue.setNumberOfInvolvedPeople(foundIntervalInDatabase.getInterval());
             }
 
 
-
         }
+        logger.info("After filtering the list there are " + listOfAllIssues.size() + " issues left.");
         return listOfAllIssues;
     }
 
