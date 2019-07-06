@@ -1,14 +1,13 @@
 package com.software.technology.ss2019.dormheroes;
 
-import com.software.technology.ss2019.dormheroes.controller.DisturbanceTypeController;
 import com.software.technology.ss2019.dormheroes.controller.IssueController;
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
 import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import com.software.technology.ss2019.dormheroes.service.DisturbanceTypeControllerService;
+import com.software.technology.ss2019.dormheroes.service.NumberOfInvolvedPeopleIntervalControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,10 @@ public class IssueControllerTest {
     private IssueController issueController;
 
     @Autowired
-    DisturbanceTypeControllerService disturbanceTypeControllerService;
+    private DisturbanceTypeControllerService disturbanceTypeControllerService;
+
+    @Autowired
+    private NumberOfInvolvedPeopleIntervalControllerService numberOfInvolvedPeopleIntervalControllerService;
 
     public Issue createTestIssue(){
         DisturbanceType disturbanceType = new DisturbanceType();
@@ -46,11 +48,17 @@ public class IssueControllerTest {
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(true);
         disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
+        numberOfInvolvedPeopleInterval.setInterval("0-99");
+        NumberOfInvolvedPeopleInterval createdInterval = numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(numberOfInvolvedPeopleInterval);
 
         Issue testIssue = createTestIssue();
+        testIssue.setNumberOfInvolvedPeople(createdInterval.get_id());
         testIssue.setDisturbanceType(disturbanceType.get_id());
         Issue savedIssueInDB = issueController.createIssue(testIssue);
         issueController.deleteIssueById(new ObjectId(savedIssueInDB.get_id()));
+        disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
+        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdInterval.get_id()));
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue, savedIssueInDB);
     }
 
