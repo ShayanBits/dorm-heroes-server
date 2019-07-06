@@ -32,8 +32,8 @@ public class NumberOfInvolvedPeopleIntervalTest {
         NumberOfInvolvedPeopleInterval createdNumberOfInvolvedPeopleInterval = createTestNumberOfInvolvedPeopleInterval();
         numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createdNumberOfInvolvedPeopleInterval);
         List<NumberOfInvolvedPeopleInterval> NumberOfInvolvedPeopleIntervalList = numberOfInvolvedPeopleIntervalControllerService.getAllIntervals();
+        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
         Assert.assertFalse("List of all NumberOfInvolvedPeopleInterval should not be empty", NumberOfInvolvedPeopleIntervalList.isEmpty());
-        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createTestNumberOfInvolvedPeopleInterval().get_id()));
     }
 
     @Test
