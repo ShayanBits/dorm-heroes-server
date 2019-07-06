@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +37,11 @@ public class IssueControllerService {
     public List<Issue> getAllIssues() {
         logger.info("Trying to receive the list of all issues from database.");
         List<Issue> listOfAllIssues = issueRepository.findByOrderByCreationDateDesc();
+        if(listOfAllIssues == null || listOfAllIssues.isEmpty()){
+            logger.info("There a no issues in database found.");
+            return Collections.emptyList();
+        }
+
         logger.info("Received the list of issues. There are " + listOfAllIssues.size() + " issues found.");
         return listOfAllIssues;
     }
