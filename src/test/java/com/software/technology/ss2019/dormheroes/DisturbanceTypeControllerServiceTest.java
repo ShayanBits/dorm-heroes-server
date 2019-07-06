@@ -4,7 +4,6 @@ import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.service.DisturbanceTypeControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class DisturbanceTypeControllerServiceTest {
     @Autowired
     private DisturbanceTypeControllerService disturbanceTypeControllerService;
 
-    @Ignore
+    
     private DisturbanceType createTestDisturbanceType(){
         DisturbanceType testDisturbanceType = new DisturbanceType();
         testDisturbanceType.setType("testType");

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "64d765c4-4eea-4712-8ab4-cc41d5433a58",
+		"_postman_id": "15bcd29d-2eb5-4a43-af45-02e2e6f841af",
 		"name": "Dorm-Heroes",
 		"description": "every dorm heroes Api call",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -81,7 +81,40 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test1\",\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
+							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test1\",\n\t\"status\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/issues/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issues",
+								""
+							]
+						},
+						"description": "Creating a new issue"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/issues/ (numberOfInvolvedPeople)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test1\",\n\t\"status\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/issues/",
@@ -285,6 +318,83 @@
 				}
 			],
 			"description": "Every request for Status"
+		},
+		{
+			"name": "NumberOfInvolvedPeople",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/numberOfInvolvedPeopleIntervals",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/numberOfInvolvedPeopleInterval/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"numberOfInvolvedPeopleInterval",
+								""
+							]
+						},
+						"description": "Receives all intervals from database."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/numberOfInvolvedPeopleIntervals/{id]",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"location\":\"h\",\n\t\"description\":\"test1\",\n\t\"status\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"disturbanceType\":{\n\t\t\"_id\":\"5cea9e4832fce31ce1836c22\",\n\t\t\"type\":\"Disturbance by non residents\"\n\t},\n\t\"title\":\"test1\",\n\t\"numberOfInvolvedPeople\":8\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/numberOfInvolvedPeopleInterval/5d10fe301c9d440000f68fd4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"numberOfInvolvedPeopleInterval",
+								"5d10fe301c9d440000f68fd4"
+							]
+						},
+						"description": "Receives all intervals from database."
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

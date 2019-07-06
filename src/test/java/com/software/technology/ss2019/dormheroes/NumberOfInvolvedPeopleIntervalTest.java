@@ -4,7 +4,6 @@ import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInt
 import com.software.technology.ss2019.dormheroes.service.NumberOfInvolvedPeopleIntervalControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ public class NumberOfInvolvedPeopleIntervalTest {
     @Autowired
     private NumberOfInvolvedPeopleIntervalControllerService numberOfInvolvedPeopleIntervalControllerService;
 
-    @Ignore
     private NumberOfInvolvedPeopleInterval createTestNumberOfInvolvedPeopleInterval(){
         NumberOfInvolvedPeopleInterval testNumberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
         testNumberOfInvolvedPeopleInterval.setInterval("0-99");
@@ -34,8 +32,8 @@ public class NumberOfInvolvedPeopleIntervalTest {
         NumberOfInvolvedPeopleInterval createdNumberOfInvolvedPeopleInterval = createTestNumberOfInvolvedPeopleInterval();
         numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(createdNumberOfInvolvedPeopleInterval);
         List<NumberOfInvolvedPeopleInterval> NumberOfInvolvedPeopleIntervalList = numberOfInvolvedPeopleIntervalControllerService.getAllIntervals();
+        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdNumberOfInvolvedPeopleInterval.get_id()));
         Assert.assertFalse("List of all NumberOfInvolvedPeopleInterval should not be empty", NumberOfInvolvedPeopleIntervalList.isEmpty());
-        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createTestNumberOfInvolvedPeopleInterval().get_id()));
     }
 
     @Test

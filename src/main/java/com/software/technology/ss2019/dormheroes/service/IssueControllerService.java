@@ -2,7 +2,6 @@ package com.software.technology.ss2019.dormheroes.service;
 
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
-import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 import org.bson.types.ObjectId;
@@ -57,7 +56,9 @@ public class IssueControllerService {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType has the id : " + issue.getDisturbanceType());
         }
 
-        if ( disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(issue.getNumberOfInvolvedPeople())) == null){
+        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() &&
+                numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(
+                        new ObjectId(issue.getNumberOfInvolvedPeople())) == null) {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople is mandatory but there is no interval in database with the id: " + issue.getNumberOfInvolvedPeople());
         }
 
