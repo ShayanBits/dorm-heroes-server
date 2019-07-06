@@ -50,7 +50,9 @@ public class IssueControllerService {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType has the id : " + issue.getDisturbanceType());
         }
 
-        if ( disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(issue.getNumberOfInvolvedPeople())) == null){
+        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() &&
+                numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(
+                        new ObjectId(issue.getNumberOfInvolvedPeople())) == null) {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople is mandatory but there is no interval in database with the id: " + issue.getNumberOfInvolvedPeople());
         }
 

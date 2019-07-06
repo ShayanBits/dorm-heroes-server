@@ -23,7 +23,6 @@ public class StatusControllerServiceTest {
     @Autowired
     private StatusControllerService statusControllerService;
 
-    @Ignore
     private Status createTestStatus(){
         Status testStatus = new Status();
         testStatus.setType("testStatusType");

@@ -29,7 +29,6 @@ public class IssueControllerTest {
     @Autowired
     DisturbanceTypeControllerService disturbanceTypeControllerService;
 
-    @Ignore
     public Issue createTestIssue(){
         DisturbanceType disturbanceType = new DisturbanceType();
         NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();

@@ -22,7 +22,6 @@ public class NumberOfInvolvedPeopleIntervalTest {
     @Autowired
     private NumberOfInvolvedPeopleIntervalControllerService numberOfInvolvedPeopleIntervalControllerService;
 
-    @Ignore
     private NumberOfInvolvedPeopleInterval createTestNumberOfInvolvedPeopleInterval(){
         NumberOfInvolvedPeopleInterval testNumberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
         testNumberOfInvolvedPeopleInterval.setInterval("0-99");
