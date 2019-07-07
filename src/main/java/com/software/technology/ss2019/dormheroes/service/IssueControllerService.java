@@ -49,12 +49,6 @@ public class IssueControllerService {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType has the id : " + issue.getDisturbanceType());
         }
 
-        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() &&
-                numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(
-                        new ObjectId(issue.getNumberOfInvolvedPeople())) == null) {
-            throw new IllegalArgumentException("The field numberOfInvolvedPeople is mandatory but there is no interval in database with the id: " + issue.getNumberOfInvolvedPeople());
-        }
-
         final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
         logger.info("Trying to create the following new issue in database: " + issue.toString());
         issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
