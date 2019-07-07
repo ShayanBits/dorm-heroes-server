@@ -5,6 +5,7 @@ import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
 import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import com.software.technology.ss2019.dormheroes.service.DisturbanceTypeControllerService;
+import com.software.technology.ss2019.dormheroes.service.NumberOfInvolvedPeopleIntervalControllerService;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,14 +26,15 @@ public class IssueControllerTest {
     private IssueController issueController;
 
     @Autowired
-    DisturbanceTypeControllerService disturbanceTypeControllerService;
+    private DisturbanceTypeControllerService disturbanceTypeControllerService;
+
+    @Autowired
+    private NumberOfInvolvedPeopleIntervalControllerService numberOfInvolvedPeopleIntervalControllerService;
 
     public Issue createTestIssue(){
-        DisturbanceType disturbanceType = new DisturbanceType();
         NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
         Issue testIssue = new Issue();
         testIssue.setDescription("TestDescription");
-        testIssue.setDisturbanceType(disturbanceType);
         testIssue.setLocation("testLocation");
         testIssue.setTitle("TestTitle");
         testIssue.setNumberOfInvolvedPeople(numberOfInvolvedPeopleInterval.get_id());
@@ -43,12 +45,21 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(true);
+        NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
+        numberOfInvolvedPeopleInterval.setInterval("0-99");
+
         disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
+        NumberOfInvolvedPeopleInterval createdInterval = numberOfInvolvedPeopleIntervalControllerService.createNumberOfInvolvedPeopleInterval(numberOfInvolvedPeopleInterval);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(disturbanceType);
+        testIssue.setNumberOfInvolvedPeople(createdInterval.get_id());
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         Issue savedIssueInDB = issueController.createIssue(testIssue);
+
         issueController.deleteIssueById(new ObjectId(savedIssueInDB.get_id()));
+        disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
+        numberOfInvolvedPeopleIntervalControllerService.deleteNumberOfInvolvedPeopleIntervalById(new ObjectId(createdInterval.get_id()));
+
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue, savedIssueInDB);
     }
 
@@ -61,10 +72,12 @@ public class IssueControllerTest {
         disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(disturbanceType);
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         Issue savedIssueInDB = issueController.createIssue(testIssue);
+
         disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
         issueController.deleteIssueById(new ObjectId(testIssue.get_id()));
+
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue, savedIssueInDB);
     }
 
@@ -76,12 +89,14 @@ public class IssueControllerTest {
         disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(disturbanceType);
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         issueController.createIssue(testIssue);
         List<Issue> issues = issueController.getAllIssues();
-        disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
-        Assert.assertFalse("List of issues should not be empty.", issues.isEmpty());
 
+        disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
+        issueController.deleteIssueById(new ObjectId(testIssue.get_id()));
+
+        Assert.assertFalse("List of issues should not be empty.", issues.isEmpty());
     }
 
     @Test
@@ -92,12 +107,14 @@ public class IssueControllerTest {
         disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(disturbanceType);
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         issueController.createIssue(testIssue);
         testIssue.setDescription("DescriptionNew");
-
         Issue updatedIssueResult = issueController.updateIssueById(new ObjectId(testIssue.get_id()), testIssue);
+
         disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
+        issueController.deleteIssueById(new ObjectId(updatedIssueResult.get_id()));
+
         Assert.assertEquals("The two issues should be equal but they are not.", testIssue.getDescription(), updatedIssueResult.getDescription());
     }
 
@@ -106,13 +123,17 @@ public class IssueControllerTest {
         DisturbanceType disturbanceType = new DisturbanceType();
         disturbanceType.setType("TestType");
         disturbanceType.setIsNumberOfInvolvedPeopleMandatory(false);
+        Issue testIssue = createTestIssue();
+        testIssue.setDisturbanceType(disturbanceType.get_id());
 
         disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
-        Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(disturbanceType);
         issueController.createIssue(testIssue);
+
         Issue issueFromDB = issueController.getIssueById(new ObjectId(testIssue.get_id()));
+
         disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
+        issueController.deleteIssueById(new ObjectId(issueFromDB.get_id()));
+
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue.toString(), issueFromDB.toString());
     }
 
@@ -124,7 +145,7 @@ public class IssueControllerTest {
         disturbanceTypeControllerService.createDisturbanceType(disturbanceType);
 
         Issue testIssue = createTestIssue();
-        testIssue.setDisturbanceType(disturbanceType);
+        testIssue.setDisturbanceType(disturbanceType.get_id());
         issueController.createIssue(testIssue);
         issueController.deleteIssueById(new ObjectId(testIssue.get_id()));
         Issue deletedIssue = issueController.getIssueById(new ObjectId(testIssue.get_id()));

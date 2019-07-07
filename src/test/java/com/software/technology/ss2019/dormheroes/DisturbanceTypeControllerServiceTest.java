@@ -22,6 +22,7 @@ public class DisturbanceTypeControllerServiceTest {
     @Autowired
     private DisturbanceTypeControllerService disturbanceTypeControllerService;
 
+    
     private DisturbanceType createTestDisturbanceType(){
         DisturbanceType testDisturbanceType = new DisturbanceType();
         testDisturbanceType.setType("testType");
