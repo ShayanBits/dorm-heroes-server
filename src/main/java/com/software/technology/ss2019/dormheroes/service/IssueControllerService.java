@@ -36,20 +36,18 @@ public class IssueControllerService {
         Map<String, String> mappedDisturbanceTypes = new HashMap<>();
         Map<String, String> mappedStatus = new HashMap<>();
         Map<String, String> mappedInterval = new HashMap<>();
-
+        List<Issue> filteredListOfIssues = new ArrayList<>();
 
         logger.info("Trying to receive the list of all issues from database.");
-        List<Issue> listOfAllIssues = issueRepository.findByOrderByCreationDateDesc();
-        if(listOfAllIssues == null || listOfAllIssues.isEmpty()){
+        List<Issue> unfilteredListOfIssues = issueRepository.findByOrderByCreationDateDesc();
+        if(unfilteredListOfIssues == null || unfilteredListOfIssues.isEmpty()){
             logger.info("There a no issues in database found.");
             return Collections.emptyList();
         }
 
-        logger.info("Received the list of issues. There are " + listOfAllIssues.size() + " issues found.");
+        logger.info("Received the list of issues. There are " + unfilteredListOfIssues.size() + " issues found.");
 
-        for (int i = 0; i < listOfAllIssues.size(); i++) {
-            Issue issue = listOfAllIssues.get(i);
-
+        for (Issue issue : unfilteredListOfIssues) {
 
             String disturbanceTypeID = issue.getDisturbanceType();
             if(mappedDisturbanceTypes.get(disturbanceTypeID) != null){
@@ -58,13 +56,13 @@ public class IssueControllerService {
                 DisturbanceType foundDisturbanceTypeFromDatabase = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType()));
                 if (foundDisturbanceTypeFromDatabase == null){
                     logger.info("There is no disturbanceType in database with the id: " + disturbanceTypeID + ". Removing issue from the list.");
-                    listOfAllIssues.remove(issue);
-                    i--;
                     continue;
                 }
+                mappedDisturbanceTypes.put(disturbanceTypeID, foundDisturbanceTypeFromDatabase.getType());
                 issue.setDisturbanceType(foundDisturbanceTypeFromDatabase.getType());
             }
 
+/*
             String statusID = issue.getStatus();
             if(mappedStatus.get(statusID) != null){
                 issue.setStatus(mappedStatus.get(statusID));
@@ -72,12 +70,13 @@ public class IssueControllerService {
                 Status foundStatusInDatabase = statusControllerService.getStatusById(new ObjectId(statusID));
                 if (foundStatusInDatabase == null){
                     logger.info("There is no status in database with the id: " + statusID + ". Removing issue from the list.");
-                    listOfAllIssues.remove(issue);
-                    i--;
                     continue;
                 }
+                mappedStatus.put(statusID, foundStatusInDatabase.getType());
                 issue.setStatus(foundStatusInDatabase.getType());
             }
+
+ */
 
             String intervalID = issue.getNumberOfInvolvedPeople();
             if(intervalID == null){
@@ -89,17 +88,16 @@ public class IssueControllerService {
                 NumberOfInvolvedPeopleInterval foundIntervalInDatabase = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(intervalID));
                 if (foundIntervalInDatabase == null){
                     logger.info("There is no NumberOfInvolvedPeopleInterval in database with the id: " + intervalID + ". Removing issue from the list.");
-                    listOfAllIssues.remove(issue);
-                    i--;
                     continue;
                 }
+                mappedInterval.put(intervalID, foundIntervalInDatabase.getInterval());
                 issue.setNumberOfInvolvedPeople(foundIntervalInDatabase.getInterval());
             }
 
-
+            filteredListOfIssues.add(issue);
         }
-        logger.info("After filtering the list there are " + listOfAllIssues.size() + " issues left.");
-        return listOfAllIssues;
+        logger.info("After filtering there are " + filteredListOfIssues.size() + " issues left of (" + unfilteredListOfIssues.size() + ")");
+        return unfilteredListOfIssues;
     }
 
     public Issue createIssue(Issue issue){
