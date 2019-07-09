@@ -62,7 +62,7 @@ public class IssueControllerService {
                 issue.setDisturbanceType(foundDisturbanceTypeFromDatabase.getType());
             }
 
-/*
+
             String statusID = issue.getStatus();
             if(mappedStatus.get(statusID) != null){
                 issue.setStatus(mappedStatus.get(statusID));
@@ -76,7 +76,6 @@ public class IssueControllerService {
                 issue.setStatus(foundStatusInDatabase.getType());
             }
 
- */
 
             String intervalID = issue.getNumberOfInvolvedPeople();
             if(intervalID == null){
@@ -85,7 +84,8 @@ public class IssueControllerService {
             if(mappedInterval.get(intervalID) != null){
                 issue.setNumberOfInvolvedPeople(mappedStatus.get(intervalID));
             }else {
-                NumberOfInvolvedPeopleInterval foundIntervalInDatabase = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(intervalID));
+                NumberOfInvolvedPeopleInterval foundIntervalInDatabase =
+                        numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(intervalID));
                 if (foundIntervalInDatabase == null){
                     logger.info("There is no NumberOfInvolvedPeopleInterval in database with the id: " + intervalID + ". Removing issue from the list.");
                     continue;
@@ -107,7 +107,8 @@ public class IssueControllerService {
             throw new IllegalArgumentException("Could not find the given disturbanceType in database.");
         }
 
-        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && (issue.getNumberOfInvolvedPeople() == null || issue.getNumberOfInvolvedPeople().isEmpty())) {
+        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && (issue.getNumberOfInvolvedPeople() == null ||
+                issue.getNumberOfInvolvedPeople().isEmpty())) {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType has the id : " + issue.getDisturbanceType());
         }
 
@@ -150,7 +151,8 @@ public class IssueControllerService {
         foundIssueInDB.setStatus(foundStatusFromDatabase.getType());
 
         if(foundIssueInDB.getNumberOfInvolvedPeople() != null ){
-            NumberOfInvolvedPeopleInterval foundNumberOfInvolvedPeopleInterval = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID (new ObjectId(foundIssueInDB.getNumberOfInvolvedPeople()));
+            NumberOfInvolvedPeopleInterval foundNumberOfInvolvedPeopleInterval =
+                    numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID (new ObjectId(foundIssueInDB.getNumberOfInvolvedPeople()));
             if (foundNumberOfInvolvedPeopleInterval == null){
                 logger.info("There is no numberOfInvolvedPeopleInterval in database with the id: " + foundIssueInDB.getNumberOfInvolvedPeople());
                 return null;
