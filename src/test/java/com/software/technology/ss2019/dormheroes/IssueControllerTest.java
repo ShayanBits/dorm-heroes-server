@@ -32,14 +32,13 @@ public class IssueControllerTest {
     private NumberOfInvolvedPeopleIntervalControllerService numberOfInvolvedPeopleIntervalControllerService;
 
     public Issue createTestIssue(){
-        NumberOfInvolvedPeopleInterval numberOfInvolvedPeopleInterval = new NumberOfInvolvedPeopleInterval();
         Issue testIssue = new Issue();
         testIssue.setDescription("TestDescription");
         testIssue.setLocation("testLocation");
         testIssue.setTitle("TestTitle");
-        testIssue.setNumberOfInvolvedPeople(numberOfInvolvedPeopleInterval.get_id());
         return testIssue;
     }
+
     @Test
     public void CreatedIssueWithNumberOfInvolvedPeopleIntervalShouldEqualsTheSavedIssueInDatabase() {
         DisturbanceType disturbanceType = new DisturbanceType();
@@ -130,10 +129,11 @@ public class IssueControllerTest {
         issueController.createIssue(testIssue);
 
         Issue issueFromDB = issueController.getIssueById(new ObjectId(testIssue.get_id()));
-
+        System.out.println(testIssue.get_id());
         disturbanceTypeControllerService.deleteDisturbanceTypeById(new ObjectId(disturbanceType.get_id()));
         issueController.deleteIssueById(new ObjectId(issueFromDB.get_id()));
 
+        testIssue.setDisturbanceType(disturbanceType.getType());
         Assert.assertEquals("The next two issues should be equal, but they are not.", testIssue.toString(), issueFromDB.toString());
     }
 

@@ -18,17 +18,17 @@ public class Issue{
     private ObjectId _id;
 
     @NotNull(message = "Location type must not be empty.")
-
     private String location;
 
     @NotNull(message = "Disturbance type must not be empty.")
+    @Size(min = 24, max = 24, message = "Invalid ID. ID sould be 24 characters long. ")
     private String disturbanceType;
 
     @NotNull(message = "Description must not be empty.")
     @Size(max = DESCRIPTION_MAX_CHAR_SIZE, message = "Description must not be longer then 500 characters.")
     private String description;
 
-    private Status status;
+    private String status;
 
     @NotNull(message = "Title should not be empty.")
     @Size(min=TITLE_MIN_CHAR_SIZE, message = "Title should not contains less than 5 characters.")
@@ -48,11 +48,11 @@ public class Issue{
         return _id.toHexString();
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

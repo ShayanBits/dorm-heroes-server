@@ -2,6 +2,7 @@ package com.software.technology.ss2019.dormheroes.service;
 
 import com.software.technology.ss2019.dormheroes.model.DisturbanceType;
 import com.software.technology.ss2019.dormheroes.model.Issue;
+import com.software.technology.ss2019.dormheroes.model.NumberOfInvolvedPeopleInterval;
 import com.software.technology.ss2019.dormheroes.model.Status;
 import com.software.technology.ss2019.dormheroes.repositories.IssueRepository;
 import org.bson.types.ObjectId;
@@ -10,8 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class IssueControllerService {
@@ -31,11 +31,73 @@ public class IssueControllerService {
     @Autowired
     private DisturbanceTypeControllerService disturbanceTypeControllerService;
 
+
     public List<Issue> getAllIssues() {
+        Map<String, String> mappedDisturbanceTypes = new HashMap<>();
+        Map<String, String> mappedStatus = new HashMap<>();
+        Map<String, String> mappedInterval = new HashMap<>();
+        List<Issue> filteredListOfIssues = new ArrayList<>();
+
         logger.info("Trying to receive the list of all issues from database.");
-        List<Issue> listOfAllIssues = issueRepository.findByOrderByCreationDateDesc();
-        logger.info("Received the list of issues. There are " + listOfAllIssues.size() + " issues found.");
-        return listOfAllIssues;
+        List<Issue> unfilteredListOfIssues = issueRepository.findByOrderByCreationDateDesc();
+        if(unfilteredListOfIssues == null || unfilteredListOfIssues.isEmpty()){
+            logger.info("There a no issues in database found.");
+            return Collections.emptyList();
+        }
+
+        logger.info("Received the list of issues. There are " + unfilteredListOfIssues.size() + " issues found.");
+
+        for (Issue issue : unfilteredListOfIssues) {
+
+            String disturbanceTypeID = issue.getDisturbanceType();
+            if(mappedDisturbanceTypes.get(disturbanceTypeID) != null){
+                issue.setDisturbanceType(mappedDisturbanceTypes.get(disturbanceTypeID));
+            }else {
+                DisturbanceType foundDisturbanceTypeFromDatabase = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(issue.getDisturbanceType()));
+                if (foundDisturbanceTypeFromDatabase == null){
+                    logger.info("There is no disturbanceType in database with the id: " + disturbanceTypeID + ". Removing issue from the list.");
+                    continue;
+                }
+                mappedDisturbanceTypes.put(disturbanceTypeID, foundDisturbanceTypeFromDatabase.getType());
+                issue.setDisturbanceType(foundDisturbanceTypeFromDatabase.getType());
+            }
+
+
+            String statusID = issue.getStatus();
+            if(mappedStatus.get(statusID) != null){
+                issue.setStatus(mappedStatus.get(statusID));
+            }else {
+                Status foundStatusInDatabase = statusControllerService.getStatusById(new ObjectId(statusID));
+                if (foundStatusInDatabase == null){
+                    logger.info("There is no status in database with the id: " + statusID + ". Removing issue from the list.");
+                    continue;
+                }
+                mappedStatus.put(statusID, foundStatusInDatabase.getType());
+                issue.setStatus(foundStatusInDatabase.getType());
+            }
+
+
+            String intervalID = issue.getNumberOfInvolvedPeople();
+            if(intervalID == null){
+                continue;
+            }
+            if(mappedInterval.get(intervalID) != null){
+                issue.setNumberOfInvolvedPeople(mappedStatus.get(intervalID));
+            }else {
+                NumberOfInvolvedPeopleInterval foundIntervalInDatabase =
+                        numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(intervalID));
+                if (foundIntervalInDatabase == null){
+                    logger.info("There is no NumberOfInvolvedPeopleInterval in database with the id: " + intervalID + ". Removing issue from the list.");
+                    continue;
+                }
+                mappedInterval.put(intervalID, foundIntervalInDatabase.getInterval());
+                issue.setNumberOfInvolvedPeople(foundIntervalInDatabase.getInterval());
+            }
+
+            filteredListOfIssues.add(issue);
+        }
+        logger.info("After filtering there are " + filteredListOfIssues.size() + " issues left of (" + unfilteredListOfIssues.size() + ")");
+        return unfilteredListOfIssues;
     }
 
     public Issue createIssue(Issue issue){
@@ -45,11 +107,18 @@ public class IssueControllerService {
             throw new IllegalArgumentException("Could not find the given disturbanceType in database.");
         }
 
-        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && (issue.getNumberOfInvolvedPeople() == null || issue.getNumberOfInvolvedPeople().isEmpty())) {
+        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() && (issue.getNumberOfInvolvedPeople() == null ||
+                issue.getNumberOfInvolvedPeople().isEmpty())) {
             throw new IllegalArgumentException("The field numberOfInvolvedPeople cannot be Null when disturbanceType has the id : " + issue.getDisturbanceType());
         }
 
-        final Status SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus();
+        if (disturbanceType.getIsNumberOfInvolvedPeopleMandatory() &&
+                numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(
+                        new ObjectId(issue.getNumberOfInvolvedPeople())) == null) {
+            throw new IllegalArgumentException("The field numberOfInvolvedPeople is mandatory but there is no interval in database with the id: " + issue.getNumberOfInvolvedPeople());
+        }
+
+        final String SENT_STATUS_OBJECT_IN_DB = statusControllerService.getSentStatus().get_id();
         logger.info("Trying to create the following new issue in database: " + issue.toString());
         issue.setStatus(SENT_STATUS_OBJECT_IN_DB);
         Issue createdIssue = issueRepository.insert(issue);
@@ -65,6 +134,33 @@ public class IssueControllerService {
             logger.info("There is no issue found in database with the id: " + id.toHexString());
             return null;
         }
+
+        DisturbanceType foundDisturbanceTypeFromDatabase = disturbanceTypeControllerService.getDisturbanceTypeById(new ObjectId(foundIssueInDB.getDisturbanceType()));
+
+        if (foundDisturbanceTypeFromDatabase == null){
+            logger.info("There is no disturbanceType in database with the id: " + foundIssueInDB.getDisturbanceType());
+            return null;
+        }
+        foundIssueInDB.setDisturbanceType(foundDisturbanceTypeFromDatabase.getType());
+
+        Status foundStatusFromDatabase = statusControllerService.getStatusById(new ObjectId(foundIssueInDB.getStatus()));
+        if (foundStatusFromDatabase == null){
+            logger.info("There is no status in database with the id: " + foundIssueInDB.getDisturbanceType());
+            return null;
+        }
+        foundIssueInDB.setStatus(foundStatusFromDatabase.getType());
+
+        if(foundIssueInDB.getNumberOfInvolvedPeople() != null ){
+            NumberOfInvolvedPeopleInterval foundNumberOfInvolvedPeopleInterval =
+                    numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID (new ObjectId(foundIssueInDB.getNumberOfInvolvedPeople()));
+            if (foundNumberOfInvolvedPeopleInterval == null){
+                logger.info("There is no numberOfInvolvedPeopleInterval in database with the id: " + foundIssueInDB.getNumberOfInvolvedPeople());
+                return null;
+            }
+            foundIssueInDB.setNumberOfInvolvedPeople(foundNumberOfInvolvedPeopleInterval.getInterval());
+        }
+
+
         logger.info("Found the following issue in database:  " + foundIssueInDB.toString());
         return foundIssueInDB;
     }
