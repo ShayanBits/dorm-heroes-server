@@ -84,7 +84,7 @@ public class IssueControllerService {
                 continue;
             }
             if(mappedInterval.get(intervalID) != null){
-                issue.setNumberOfInvolvedPeople(mappedStatus.get(intervalID));
+                issue.setNumberOfInvolvedPeople(mappedInterval.get(intervalID));
             }else {
                 NumberOfInvolvedPeopleInterval foundIntervalInDatabase = numberOfInvolvedPeopleIntervalControllerService.getNumberOfInvolvedPeopleIntervalByID(new ObjectId(intervalID));
                 if (foundIntervalInDatabase == null){
